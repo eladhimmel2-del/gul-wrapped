@@ -39,18 +39,41 @@
       overflow: hidden;
     }
 
-    /* TOTAL TIMELINE: 38s
-       Scene 5: 0   - 8s  (2025 intro, plays first)
-       Scene 1: 8   - 13s
-       Scene 2: 13  - 21s
-       Scene 3: 21  - 29s
-       Scene 4: 29  - 38s (holds at end)
+    /* TOTAL TIMELINE: 76s
+       Scene 5: 0   - 10s  (2025 intro, plays first)
+       Scene 1: 10  - 15s
+       Scene 2: 15  - 23s
+       Scene 3: 23  - 31s
+       Scene 4: 31  - 36s
+       Card 1:  36  - 41s  (The Tops)
+       Card 2:  41  - 46s  (Genres)
+       Card 3:  46  - 51s  (Albums)
+       Card 4:  51  - 56s  (Artists)
+       Card 5:  56  - 61s  (Top Artist)
+       Card 6:  61  - 66s  (Songs)
+       Card 7:  66  - 71s  (Age)
+       Card 8:  71  - 76s  (Minutes — holds)
     */
-    .scene-5 { animation: sceneA 8s ease 0s forwards; }
-    .scene-1 { animation: sceneA 5s ease 8s forwards; }
-    .scene-2 { animation: sceneA 8s ease 13s forwards; }
-    .scene-3 { animation: sceneA 8s ease 21s forwards; }
-    .scene-4 { animation: sceneHold 9s ease 29s forwards; }
+    .scene-5  { animation: s5Scene 10s ease 0s both; }
+    .scene-1  { animation: sceneA 5s ease 10s forwards; }
+    .scene-2  { animation: sceneA 8s ease 15s forwards; }
+    .scene-3  { animation: sceneA 8s ease 23s forwards; }
+    .scene-4  { animation: sceneA 5s ease 31s forwards; }
+    .scene-c1 { animation: sceneA 5s ease 36s forwards; }
+    .scene-c2 { animation: sceneA 5s ease 41s forwards; }
+    .scene-c3 { animation: sceneA 5s ease 46s forwards; }
+    .scene-c4 { animation: sceneA 5s ease 51s forwards; }
+    .scene-c5 { animation: sceneA 5s ease 56s forwards; }
+    .scene-c6 { animation: sceneA 5s ease 61s forwards; }
+    .scene-c7 { animation: sceneA 5s ease 66s forwards; }
+    .scene-c8 { animation: sceneHold 5s ease 71s forwards; }
+
+    @keyframes s5Scene {
+      0%   { opacity: 0; }
+      8%   { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { opacity: 0; }
+    }
 
     @keyframes sceneA {
       0%   { opacity: 0; visibility: hidden; }
@@ -82,6 +105,37 @@
       font-family: Arial, sans-serif;
     }
     .replay-btn:hover { background: rgba(0,0,0,0.9); }
+
+    /* Scene nav */
+    .scene-nav {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      gap: 4px;
+      background: rgba(0,0,0,0.6);
+      padding: 5px 10px;
+      border-radius: 16px;
+      pointer-events: auto;
+    }
+    .scene-nav button {
+      width: 24px; height: 24px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      padding: 0;
+      line-height: 24px;
+      pointer-events: auto;
+    }
+    .scene-nav button:hover { background: rgba(255,255,255,0.6); }
+    .scene-nav button.active { background: #1DB954; }
 
 
     /* ────────────── SCENE 1 ────────────── */
@@ -151,7 +205,7 @@
       width: 280px; height: 280px;
       z-index: 3;
       transform: translate(-100%, 100%);
-      animation: s1ArcMove 5s cubic-bezier(0.5, 0, 0.5, 1) 8s forwards;
+      animation: s1ArcMove 5s cubic-bezier(0.5, 0, 0.5, 1) 10s forwards;
     }
     @keyframes s1ArcMove {
       0%   { transform: translate(-100%, 100%) rotate(-20deg); }
@@ -172,7 +226,7 @@
       letter-spacing: -0.3px;
       margin-bottom: 32px;
       opacity: 0;
-      animation: s2HeaderIn 0.6s ease 14.2s forwards;
+      animation: s2HeaderIn 0.6s ease 16.2s forwards;
     }
     @keyframes s2HeaderIn {
       0% { opacity: 0; transform: translateY(-15px); }
@@ -200,11 +254,11 @@
       transform: translateX(-150%);
       animation: s2ItemSlide 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
     }
-    .s2-item-1 { background: #000; animation-delay: 14.8s; }
-    .s2-item-2 { background: #ff6b1a; animation-delay: 15.0s; }
-    .s2-item-3 { background: #000; animation-delay: 15.2s; }
-    .s2-item-4 { background: #000; animation-delay: 15.4s; }
-    .s2-item-5 { background: #000; animation-delay: 15.6s; }
+    .s2-item-1 { background: #000; animation-delay: 16.8s; }
+    .s2-item-2 { background: #ff6b1a; animation-delay: 17.0s; }
+    .s2-item-3 { background: #000; animation-delay: 17.2s; }
+    .s2-item-4 { background: #000; animation-delay: 17.4s; }
+    .s2-item-5 { background: #000; animation-delay: 17.6s; }
 
     @keyframes s2ItemSlide {
       0%   { transform: translateX(-150%); }
@@ -234,18 +288,18 @@
       100% { transform: translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, 0px))) scale(0); }
     }
 
-    .s2-c1  { --tx: -180px; --ty: -100px; width: 28px; height: 28px; background: #000;     animation-delay: 13.4s; }
-    .s2-c2  { --tx:  170px; --ty:  -80px; width: 38px; height: 38px; background: #ff6b1a;  animation-delay: 13.45s; }
-    .s2-c3  { --tx: -120px; --ty:   90px; width: 22px; height: 22px; background: #ff6b1a;  animation-delay: 13.5s; }
-    .s2-c4  { --tx:  220px; --ty:   60px; width: 32px; height: 32px; background: #000;     animation-delay: 13.5s; }
-    .s2-c5  { --tx:  -90px; --ty: -180px; width: 18px; height: 18px; background: #000;     animation-delay: 13.55s; }
-    .s2-c6  { --tx:  100px; --ty: -180px; width: 26px; height: 26px; background: #ff6b1a;  animation-delay: 13.45s; }
-    .s2-c7  { --tx: -240px; --ty:    0px; width: 20px; height: 20px; background: #000;     animation-delay: 13.6s; }
-    .s2-c8  { --tx:  260px; --ty:  -10px; width: 16px; height: 16px; background: #000;     animation-delay: 13.5s; }
-    .s2-c9  { --tx:  -40px; --ty:  170px; width: 30px; height: 30px; background: #ff6b1a;  animation-delay: 13.55s; }
-    .s2-c10 { --tx:   40px; --ty:  180px; width: 24px; height: 24px; background: #000;     animation-delay: 13.5s; }
-    .s2-c11 { --tx: -200px; --ty: -140px; width: 14px; height: 14px; background: #ff6b1a;  animation-delay: 13.5s; }
-    .s2-c12 { --tx:  190px; --ty:  140px; width: 22px; height: 22px; background: #ff6b1a;  animation-delay: 13.6s; }
+    .s2-c1  { --tx: -180px; --ty: -100px; width: 28px; height: 28px; background: #000;     animation-delay: 15.4s; }
+    .s2-c2  { --tx:  170px; --ty:  -80px; width: 38px; height: 38px; background: #ff6b1a;  animation-delay: 15.45s; }
+    .s2-c3  { --tx: -120px; --ty:   90px; width: 22px; height: 22px; background: #ff6b1a;  animation-delay: 15.5s; }
+    .s2-c4  { --tx:  220px; --ty:   60px; width: 32px; height: 32px; background: #000;     animation-delay: 15.5s; }
+    .s2-c5  { --tx:  -90px; --ty: -180px; width: 18px; height: 18px; background: #000;     animation-delay: 15.55s; }
+    .s2-c6  { --tx:  100px; --ty: -180px; width: 26px; height: 26px; background: #ff6b1a;  animation-delay: 15.45s; }
+    .s2-c7  { --tx: -240px; --ty:    0px; width: 20px; height: 20px; background: #000;     animation-delay: 15.6s; }
+    .s2-c8  { --tx:  260px; --ty:  -10px; width: 16px; height: 16px; background: #000;     animation-delay: 15.5s; }
+    .s2-c9  { --tx:  -40px; --ty:  170px; width: 30px; height: 30px; background: #ff6b1a;  animation-delay: 15.55s; }
+    .s2-c10 { --tx:   40px; --ty:  180px; width: 24px; height: 24px; background: #000;     animation-delay: 15.5s; }
+    .s2-c11 { --tx: -200px; --ty: -140px; width: 14px; height: 14px; background: #ff6b1a;  animation-delay: 15.5s; }
+    .s2-c12 { --tx:  190px; --ty:  140px; width: 22px; height: 22px; background: #ff6b1a;  animation-delay: 15.6s; }
 
     .s2-dots {
       position: absolute;
@@ -308,7 +362,7 @@
       stroke-linejoin: round;
       stroke-dasharray: 6000;
       stroke-dashoffset: 6000;
-      animation: s3DoodleDraw 3s ease-in-out 21.2s forwards;
+      animation: s3DoodleDraw 3s ease-in-out 23.2s forwards;
     }
 
     @keyframes s3DoodleDraw {
@@ -327,7 +381,7 @@
       line-height: 1.3;
       z-index: 5;
       opacity: 0;
-      animation: s3TextIn 0.6s ease 22.8s forwards;
+      animation: s3TextIn 0.6s ease 24.8s forwards;
     }
     @keyframes s3TextIn {
       0% { opacity: 0; transform: translateY(20px); }
@@ -340,7 +394,7 @@
       transform: translateX(-50%) translateY(110%);
       width: 600px; height: 380px;
       z-index: 3;
-      animation: s3ArchRise 8s cubic-bezier(0.5, 0, 0.5, 1) 21s forwards;
+      animation: s3ArchRise 8s cubic-bezier(0.5, 0, 0.5, 1) 23s forwards;
     }
     @keyframes s3ArchRise {
       0%   { transform: translateX(-50%) translateY(110%); }
@@ -366,7 +420,7 @@
       line-height: 1.3;
       z-index: 5;
       opacity: 0;
-      animation: s4TextIn 0.6s ease 30.5s forwards;
+      animation: s4TextIn 0.6s ease 32.5s forwards;
     }
     @keyframes s4TextIn {
       0%   { opacity: 0; }
@@ -402,7 +456,7 @@
     .s4-bar.b6 { background: linear-gradient(to bottom, #fff 0%, #fff 50%, #000 50%, #000 100%); }
 
     .s4-bar.color-flash {
-      animation: s4ColorFlash 2.5s ease 31.5s forwards;
+      animation: s4ColorFlash 2.5s ease 33.5s forwards;
     }
     @keyframes s4ColorFlash {
       0%   { background: linear-gradient(to bottom, #000 0%, #000 50%, #fff 50%, #fff 100%); }
@@ -410,6 +464,27 @@
       75%  { background: linear-gradient(to bottom, #6b4eff 0%, #6b4eff 50%, #fff 50%, #fff 100%); }
       100% { background: linear-gradient(to bottom, #000 0%, #000 50%, #fff 50%, #fff 100%); }
     }
+
+
+    /* ────────────── CARD SCENES ────────────── */
+    .scene-c1 { background: #fff; }
+    .scene-c2 { background: #ede8dc; }
+    .scene-c3 { background: #ede8dc; }
+    .scene-c4 { background: #0e0e12; }
+    .scene-c5 { background: #111; }
+    .scene-c6 { background: #111; }
+    .scene-c7 { background: #e4e4e4; }
+    .scene-c8 { background: #111; }
+
+    .scene .tops-card { transform: scale(1.35); }
+
+    .scene .genres-card,
+    .scene .albums-card,
+    .scene .artists-card,
+    .scene .artist-card,
+    .scene .songs-card,
+    .scene .age-card,
+    .scene .mins-card { transform: scale(1.5); }
 
 
     /* ────────────── SCENE 5 ────────────── */
@@ -522,7 +597,7 @@
       justify-content: center;
       align-items: flex-start;
       opacity: 0;
-      animation: cardsAppear 1.5s ease 36s forwards;
+      animation: cardsAppear 1.5s ease 74s forwards;
     }
     @keyframes cardsAppear {
       0%   { opacity: 0; transform: translateY(40px); }
@@ -703,20 +778,6 @@
   <!-- ════════ INTRO ANIMATION STAGE ════════ -->
   <div class="intro-stage" id="introStage">
 
-    <!-- SCENE 5 (plays first) -->
-    <div class="scene scene-5">
-      <div class="s5-checker-bg"></div>
-      <div class="s5-2025-wrap">
-        <div class="s5-num-half s5-num-top">2025</div>
-        <div class="s5-num-half s5-num-bot">2025</div>
-      </div>
-      <div class="s5-title">
-        <span>Your 2025</span>
-        <span>Spotify Wrapped</span>
-        <span>is Here</span>
-      </div>
-    </div>
-
     <!-- SCENE 1 -->
     <div class="scene scene-1">
       <div class="s1-oval"></div>
@@ -812,7 +873,301 @@
       <div class="s4-text">This Year, You Wasted<br>120 hours skipping songs.</div>
     </div>
 
+    <!-- CARD 1: The Tops -->
+    <div class="scene scene-c1">
+      <div class="tops-card">
+        <div class="tops-img">
+          <span class="tops-label">The Tops</span>
+          <div class="tops-year">2025</div>
+          <div class="tops-album-art checker"></div>
+          <div class="tops-stripes">
+            <svg viewBox="0 0 86 270" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="ws2" x="0" y="0" width="18" height="270" patternUnits="userSpaceOnUse">
+                  <rect x="0" y="0" width="9" height="270" fill="#fff"/>
+                  <rect x="9" y="0" width="9" height="270" fill="#000"/>
+                </pattern>
+                <clipPath id="wc2">
+                  <path d="M 0 0 Q 11 34 0 68 Q -11 102 0 136 Q 11 170 0 204 Q -11 238 0 270 L 86 270 Q 75 236 86 202 Q 97 168 86 134 Q 75 100 86 66 Q 97 32 86 0 Z"/>
+                </clipPath>
+              </defs>
+              <rect x="0" y="0" width="86" height="270" fill="url(#ws2)" clip-path="url(#wc2)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="tops-stats">
+          <div class="tops-two-col">
+            <div class="tops-col">
+              <div class="tops-col-title">Top Artists</div>
+              <ul class="tops-list">
+                <li><span class="r">1</span> sombr</li>
+                <li><span class="r">2</span> Lady Gaga</li>
+                <li><span class="r">3</span> Chappell Roan</li>
+                <li><span class="r">4</span> Ravyn Lenae</li>
+                <li><span class="r">5</span> Tinashe</li>
+              </ul>
+            </div>
+            <div class="tops-col">
+              <div class="tops-col-title">Top Songs</div>
+              <ul class="tops-list">
+                <li><span class="r">1</span> back to friends</li>
+                <li><span class="r">2</span> Golden</li>
+                <li><span class="r">3</span> Bad Romance</li>
+                <li><span class="r">4</span> savior</li>
+                <li><span class="r">5</span> Love Me Not</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tops-bottom">
+            <div class="tops-stat">
+              <div class="tops-stat-lbl">Minutes Listened</div>
+              <div class="tops-stat-big">53,623</div>
+            </div>
+            <div class="tops-stat">
+              <div class="tops-stat-lbl">Top Genre</div>
+              <div class="tops-stat-med">Indie</div>
+            </div>
+          </div>
+        </div>
+        <div class="tops-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2: Genres -->
+    <div class="scene scene-c2">
+      <div class="genres-card">
+        <div class="genres-heading">My Top Genres</div>
+        <div class="genres-rows">
+          <div class="genres-row"><span class="genres-num">1</span><div class="genres-bar">K-Pop</div></div>
+          <div class="genres-row"><span class="genres-num">2</span><div class="genres-bar">Soft Pop</div></div>
+          <div class="genres-row"><span class="genres-num">3</span><div class="genres-bar">Soul</div></div>
+          <div class="genres-row"><span class="genres-num">4</span><div class="genres-bar sm">Gregorian Chant</div></div>
+          <div class="genres-row"><span class="genres-num">5</span><div class="genres-bar">Oldies</div></div>
+        </div>
+        <div class="genres-deco">
+          <svg width="260" height="88" viewBox="0 0 260 88" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="245" cy="-15" r="62" fill="none" stroke="#e8302e" stroke-width="3"/>
+            <circle cx="206" cy="42" r="7" fill="#e8302e"/>
+            <circle cx="36" cy="46" r="5" fill="#e8302e"/>
+            <circle cx="178" cy="66" r="4" fill="#e8302e"/>
+            <ellipse cx="64" cy="63" rx="15" ry="9" fill="#1a1a1a"/>
+            <ellipse cx="64" cy="56" rx="15" ry="9" fill="#000"/>
+            <ellipse cx="64" cy="49" rx="15" ry="9" fill="#1a1a1a"/>
+            <ellipse cx="214" cy="75" rx="10" ry="6" fill="#1a1a1a"/>
+            <ellipse cx="214" cy="69" rx="10" ry="6" fill="#000"/>
+            <circle cx="130" cy="72" r="13" fill="#000"/>
+            <circle cx="155" cy="80" r="7" fill="#000"/>
+            <circle cx="100" cy="78" r="5" fill="#000"/>
+            <path d="M 10 82 C 55 38 155 78 250 28" stroke="#000" stroke-width="2.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="genres-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3: Albums -->
+    <div class="scene scene-c3">
+      <div class="albums-card">
+        <div class="albums-header"><span class="albums-title-hl">My Top Albums</span></div>
+        <div class="albums-grid-wrap">
+          <div class="albums-deco-left"><div class="a-disc-lg"></div><div class="a-disc"></div><div class="a-disc-lg"></div><div class="a-disc"></div></div>
+          <div class="albums-deco-right"><div class="a-disc"></div><div class="a-disc-lg"></div><div class="a-disc"></div><div class="a-disc-lg"></div></div>
+          <div class="albums-grid">
+            <div class="albums-row-top">
+              <div class="ac checker"><span class="ac-num">1</span></div>
+              <div class="ac checker"><span class="ac-num">2</span></div>
+            </div>
+            <div class="albums-row-bot">
+              <div class="ac checker"><span class="ac-num">3</span></div>
+              <div class="ac checker"><span class="ac-num">4</span></div>
+              <div class="ac checker"><span class="ac-num">5</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="albums-list">
+          <div class="albums-item"><span class="albums-item-num">1</span><div><div class="albums-item-title">The Forever Story</div><div class="albums-item-artist">JID</div></div></div>
+          <div class="albums-item"><span class="albums-item-num">2</span><div><div class="albums-item-title">Alligator Bites Never Heal</div><div class="albums-item-artist">Doechii</div></div></div>
+          <div class="albums-item"><span class="albums-item-num">3</span><div><div class="albums-item-title">Mama's Gun</div><div class="albums-item-artist">Erykah Badu</div></div></div>
+          <div class="albums-item"><span class="albums-item-num">4</span><div><div class="albums-item-title">Baduizm</div><div class="albums-item-artist">Erykah Badu</div></div></div>
+          <div class="albums-item"><span class="albums-item-num">5</span><div><div class="albums-item-title">Doris</div><div class="albums-item-artist">Earl Sweatshirt</div></div></div>
+        </div>
+        <div class="albums-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4: Artists -->
+    <div class="scene scene-c4">
+      <div class="artists-card">
+        <div class="artists-inner">
+          <div class="artists-arcs-left">
+            <svg width="120" height="180" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="0" cy="180" r="35" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+              <circle cx="0" cy="180" r="55" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2"/>
+              <circle cx="0" cy="180" r="75" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+              <circle cx="0" cy="180" r="95" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+              <circle cx="0" cy="180" r="115" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="artists-arcs-right">
+            <svg width="120" height="180" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="120" cy="0" r="35" fill="none" stroke="rgba(160,100,255,0.9)" stroke-width="2"/>
+              <circle cx="120" cy="0" r="55" fill="none" stroke="rgba(160,100,255,0.75)" stroke-width="2"/>
+              <circle cx="120" cy="0" r="75" fill="none" stroke="rgba(160,100,255,0.6)" stroke-width="2"/>
+              <circle cx="120" cy="0" r="95" fill="none" stroke="rgba(160,100,255,0.45)" stroke-width="2"/>
+              <circle cx="120" cy="0" r="115" fill="none" stroke="rgba(160,100,255,0.3)" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="artists-squiggle">
+            <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 8 36 C 8 20 22 20 22 12 C 22 4 36 4 36 20 C 36 28 28 32 22 38" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="artists-title">My Top Artists</div>
+          <div class="artists-row"><span class="artists-row-num">1</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">JID</div></div>
+          <div class="artists-row"><span class="artists-row-num">2</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Erykah Badu</div></div>
+          <div class="artists-row"><span class="artists-row-num">3</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Tyler, The Creator</div></div>
+          <div class="artists-row"><span class="artists-row-num">4</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Kendrick Lamar</div></div>
+          <div class="artists-row"><span class="artists-row-num">5</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Doechii</div></div>
+        </div>
+        <div class="artists-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 5: Top Artist -->
+    <div class="scene scene-c5">
+      <div class="artist-card">
+        <div class="artist-top">
+          <svg class="artist-funnel" viewBox="0 0 260 210" xmlns="http://www.w3.org/2000/svg">
+            <line x1="130" y1="0" x2="0" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="130" y1="0" x2="40" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="130" y1="0" x2="85" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="130" y1="0" x2="130" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="130" y1="0" x2="175" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="130" y1="0" x2="220" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="130" y1="0" x2="260" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="0" y1="50" x2="260" y2="50" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+            <line x1="0" y1="100" x2="260" y2="100" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+            <line x1="0" y1="150" x2="260" y2="150" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+          </svg>
+          <div class="artist-circle-wrap"><div class="artist-circle checker"></div></div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-label">My Top Artist</div>
+          <div class="artist-name">Twenty One Pilots</div>
+          <div class="artist-divider"></div>
+          <div class="artist-stat-lbl">Minutes Listened</div>
+          <div class="artist-stat-val">3,547</div>
+          <div class="artist-global">Top 0.1% global fan</div>
+        </div>
+        <div class="artist-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 6: Songs -->
+    <div class="scene scene-c6">
+      <div class="songs-card">
+        <div class="songs-img-area">
+          <svg class="songs-waves" width="160" height="90" viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#fff" d="M 0,0 L 22,0 A 22,22 0 0 0 0,22 Z"/>
+            <path fill="#000" d="M 22,0 L 42,0 A 42,42 0 0 0 0,42 L 0,22 A 22,22 0 0 1 22,0 Z"/>
+            <path fill="#fff" d="M 42,0 L 62,0 A 62,62 0 0 0 0,62 L 0,42 A 42,42 0 0 1 42,0 Z"/>
+            <path fill="#000" d="M 62,0 L 82,0 A 82,82 0 0 0 0,82 L 0,62 A 62,62 0 0 1 62,0 Z"/>
+            <path fill="#fff" d="M 82,0 L 102,0 A 102,102 0 0 0 0,102 L 0,82 A 82,82 0 0 1 82,0 Z"/>
+            <path fill="#000" d="M 102,0 L 122,0 A 122,122 0 0 0 0,122 L 0,102 A 102,102 0 0 1 102,0 Z"/>
+            <path fill="#fff" d="M 122,0 L 142,0 A 142,142 0 0 0 0,142 L 0,122 A 122,122 0 0 1 122,0 Z"/>
+            <path fill="#000" d="M 142,0 L 162,0 A 162,162 0 0 0 0,162 L 0,142 A 142,142 0 0 1 142,0 Z"/>
+          </svg>
+          <div class="songs-label">My Top Songs</div>
+        </div>
+        <div class="songs-list">
+          <div class="songs-item"><span class="songs-num">1</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Drum Show</div><div class="songs-artist">Twenty One Pilots</div></div></div>
+          <div class="songs-item"><span class="songs-num">2</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">End of Beginning</div><div class="songs-artist">Djo</div></div></div>
+          <div class="songs-item"><span class="songs-num">3</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Valentine</div><div class="songs-artist">Laufey</div></div></div>
+          <div class="songs-item"><span class="songs-num">4</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Running Up That Hill</div><div class="songs-artist">Kate Bush</div></div></div>
+          <div class="songs-item"><span class="songs-num">5</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Defying Gravity</div><div class="songs-artist">Cynthia Erivo</div></div></div>
+        </div>
+        <div class="songs-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 7: Age -->
+    <div class="scene scene-c7">
+      <div class="age-card">
+        <div class="age-body">
+          <div class="age-heading">My Listening Age</div>
+          <div class="age-num">45</div>
+          <div class="age-since">Since I was into music from the <strong>Late 90s</strong></div>
+        </div>
+        <div class="age-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 8: Minutes -->
+    <div class="scene scene-c8">
+      <div class="mins-card">
+        <div class="mins-body">
+          <div class="mins-heading">My Minutes Listened</div>
+          <div class="mins-num">71,169</div>
+          <div class="mins-days">That's <strong>49 days.</strong></div>
+        </div>
+        <div class="mins-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 5 (plays first, placed last in DOM to stay on top) -->
+    <div class="scene scene-5">
+      <div class="s5-checker-bg"></div>
+      <div class="s5-2025-wrap">
+        <div class="s5-num-half s5-num-top">2025</div>
+        <div class="s5-num-half s5-num-bot">2025</div>
+      </div>
+      <div class="s5-title">
+        <span>Your 2025</span>
+        <span>Spotify Wrapped</span>
+        <span>is Here</span>
+      </div>
+    </div>
+
     <button class="replay-btn" onclick="replayIntro()">&#8634; Replay</button>
+    <div class="scene-nav">
+      <button onclick="goScene(12)" title="2025 Intro">5</button>
+      <button onclick="goScene(0)" title="Scene 1">1</button>
+      <button onclick="goScene(1)" title="Scene 2">2</button>
+      <button onclick="goScene(2)" title="Scene 3">3</button>
+      <button onclick="goScene(3)" title="Scene 4">4</button>
+      <button onclick="goScene(4)" title="The Tops">T</button>
+      <button onclick="goScene(5)" title="Genres">G</button>
+      <button onclick="goScene(6)" title="Albums">Al</button>
+      <button onclick="goScene(7)" title="Artists">Ar</button>
+      <button onclick="goScene(8)" title="Top Artist">★</button>
+      <button onclick="goScene(9)" title="Songs">S</button>
+      <button onclick="goScene(10)" title="Age">Ag</button>
+      <button onclick="goScene(11)" title="Minutes">M</button>
+    </div>
   </div>
 
 
@@ -1107,6 +1462,22 @@
       stage.parentNode.replaceChild(stageClone, stage);
       const gridClone = grid.cloneNode(true);
       grid.parentNode.replaceChild(gridClone, grid);
+    }
+
+    function goScene(idx) {
+      const scenes = document.querySelectorAll('#introStage .scene');
+      const btns = document.querySelectorAll('.scene-nav button');
+      scenes.forEach(s => {
+        s.style.cssText = 'animation:none !important; opacity:0 !important; visibility:hidden !important;';
+      });
+      const target = scenes[idx];
+      if (target) {
+        target.style.cssText = 'animation:none !important; opacity:1 !important; visibility:visible !important;';
+      }
+      btns.forEach(b => b.classList.remove('active'));
+      const navOrder = [12,0,1,2,3,4,5,6,7,8,9,10,11];
+      var btnIdx = navOrder.indexOf(idx);
+      if (btnIdx >= 0) btns[btnIdx].classList.add('active');
     }
   </script>
 
