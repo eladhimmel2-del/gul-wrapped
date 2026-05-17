@@ -3,19 +3,530 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spotify Wrapped 2025 — All Slides</title>
+  <title>Spotify Wrapped 2025 — Animated</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       background: #b0b0b0;
       font-family: 'Arial Black', Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ════════════════════════════════════════════
+       INTRO ANIMATION STAGE
+    ════════════════════════════════════════════ */
+    .intro-stage {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      height: 640px;
+      margin: 24px auto;
+      background: #ede8dc;
+      overflow: hidden;
+      border-radius: 18px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    /* TOTAL TIMELINE: 38s
+       Scene 5: 0   - 8s  (2025 intro, plays first)
+       Scene 1: 8   - 13s
+       Scene 2: 13  - 21s
+       Scene 3: 21  - 29s
+       Scene 4: 29  - 38s (holds at end)
+    */
+    .scene-5 { animation: sceneA 8s ease 0s forwards; }
+    .scene-1 { animation: sceneA 5s ease 8s forwards; }
+    .scene-2 { animation: sceneA 8s ease 13s forwards; }
+    .scene-3 { animation: sceneA 8s ease 21s forwards; }
+    .scene-4 { animation: sceneHold 9s ease 29s forwards; }
+
+    @keyframes sceneA {
+      0%   { opacity: 0; visibility: hidden; }
+      8%   { opacity: 1; visibility: visible; }
+      92%  { opacity: 1; visibility: visible; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+    @keyframes sceneHold {
+      0%   { opacity: 0; visibility: hidden; }
+      8%   { opacity: 1; visibility: visible; }
+      100% { opacity: 1; visibility: visible; }
+    }
+
+    /* Replay button */
+    .replay-btn {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      z-index: 999;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+    }
+    .replay-btn:hover { background: rgba(0,0,0,0.9); }
+
+
+    /* ────────────── SCENE 1 ────────────── */
+    .scene-1 { background: #ede8dc; }
+
+    .s1-oval {
+      position: absolute;
+      top: 38%; left: 35%;
+      width: 280px; height: 110px;
+      background: rgba(255, 200, 100, 0.18);
+      border-radius: 50%;
+      filter: blur(2px);
+      z-index: 1;
+    }
+
+    .s1-wavy {
+      position: absolute;
+      top: 40px; left: 50px;
+      width: 110px; height: 30px;
+      z-index: 1;
+    }
+
+    .s1-text {
+      font-size: 36px;
+      font-weight: 900;
+      color: #000;
+      text-align: center;
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+      padding: 0 40px;
+      z-index: 5;
+      line-height: 1.1;
+    }
+
+    .s1-subtext {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ff6b1a;
+      text-align: center;
+      letter-spacing: -0.2px;
+      z-index: 5;
+      padding: 0 40px;
+    }
+
+    .s1-logo {
+      position: absolute;
+      bottom: 24px; left: 24px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: #000;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 5;
+    }
+    .s1-logo .play-tri {
+      width: 0; height: 0;
+      border-left: 7px solid #000;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+    }
+
+    .s1-arc {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 280px; height: 280px;
+      z-index: 3;
+      transform: translate(-100%, 100%);
+      animation: s1ArcMove 5s cubic-bezier(0.5, 0, 0.5, 1) 8s forwards;
+    }
+    @keyframes s1ArcMove {
+      0%   { transform: translate(-100%, 100%) rotate(-20deg); }
+      25%  { transform: translate(55%, -25%) rotate(15deg); }
+      60%  { transform: translate(55%, -25%) rotate(15deg); }
+      90%  { transform: translate(-100%, 100%) rotate(-20deg); }
+      100% { transform: translate(-100%, 100%) rotate(-20deg); }
+    }
+
+
+    /* ────────────── SCENE 2 ────────────── */
+    .scene-2 { background: #ede8dc; justify-content: flex-start; padding-top: 70px; }
+
+    .s2-header {
+      font-size: 22px;
+      font-weight: 900;
+      color: #000;
+      letter-spacing: -0.3px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: s2HeaderIn 0.6s ease 14.2s forwards;
+    }
+    @keyframes s2HeaderIn {
+      0% { opacity: 0; transform: translateY(-15px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .s2-list {
+      width: 100%;
+      max-width: 540px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 0 40px;
+    }
+
+    .s2-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      transform: translateX(-150%);
+      animation: s2ItemSlide 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+    }
+    .s2-item-1 { background: #000; animation-delay: 14.8s; }
+    .s2-item-2 { background: #ff6b1a; animation-delay: 15.0s; }
+    .s2-item-3 { background: #000; animation-delay: 15.2s; }
+    .s2-item-4 { background: #000; animation-delay: 15.4s; }
+    .s2-item-5 { background: #000; animation-delay: 15.6s; }
+
+    @keyframes s2ItemSlide {
+      0%   { transform: translateX(-150%); }
+      100% { transform: translateX(0); }
+    }
+
+    .s2-item-num { font-size: 22px; min-width: 26px; }
+
+    .s2-burst {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 4px; height: 4px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .s2-c {
+      position: absolute;
+      top: 50%; left: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      animation: s2Burst 1.2s cubic-bezier(0.3, 0.7, 0.4, 1) 5.4s forwards;
+    }
+    @keyframes s2Burst {
+      0%   { transform: translate(-50%, -50%) scale(0); }
+      40%  { transform: translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, 0px))) scale(1); }
+      70%  { transform: translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, 0px))) scale(1); }
+      100% { transform: translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, 0px))) scale(0); }
+    }
+
+    .s2-c1  { --tx: -180px; --ty: -100px; width: 28px; height: 28px; background: #000;     animation-delay: 13.4s; }
+    .s2-c2  { --tx:  170px; --ty:  -80px; width: 38px; height: 38px; background: #ff6b1a;  animation-delay: 13.45s; }
+    .s2-c3  { --tx: -120px; --ty:   90px; width: 22px; height: 22px; background: #ff6b1a;  animation-delay: 13.5s; }
+    .s2-c4  { --tx:  220px; --ty:   60px; width: 32px; height: 32px; background: #000;     animation-delay: 13.5s; }
+    .s2-c5  { --tx:  -90px; --ty: -180px; width: 18px; height: 18px; background: #000;     animation-delay: 13.55s; }
+    .s2-c6  { --tx:  100px; --ty: -180px; width: 26px; height: 26px; background: #ff6b1a;  animation-delay: 13.45s; }
+    .s2-c7  { --tx: -240px; --ty:    0px; width: 20px; height: 20px; background: #000;     animation-delay: 13.6s; }
+    .s2-c8  { --tx:  260px; --ty:  -10px; width: 16px; height: 16px; background: #000;     animation-delay: 13.5s; }
+    .s2-c9  { --tx:  -40px; --ty:  170px; width: 30px; height: 30px; background: #ff6b1a;  animation-delay: 13.55s; }
+    .s2-c10 { --tx:   40px; --ty:  180px; width: 24px; height: 24px; background: #000;     animation-delay: 13.5s; }
+    .s2-c11 { --tx: -200px; --ty: -140px; width: 14px; height: 14px; background: #ff6b1a;  animation-delay: 13.5s; }
+    .s2-c12 { --tx:  190px; --ty:  140px; width: 22px; height: 22px; background: #ff6b1a;  animation-delay: 13.6s; }
+
+    .s2-dots {
+      position: absolute;
+      bottom: 70px; right: 30px;
+      width: 80px; height: 60px;
+      z-index: 2;
+    }
+    .s2-dots span {
+      position: absolute;
+      width: 8px; height: 8px;
+      background: #ff6b1a;
+      border-radius: 50%;
+    }
+    .s2-dots span:nth-child(1) { top: 0; left: 10px; }
+    .s2-dots span:nth-child(2) { top: 12px; left: 32px; }
+    .s2-dots span:nth-child(3) { top: 8px; left: 56px; width: 6px; height: 6px; }
+    .s2-dots span:nth-child(4) { top: 30px; left: 4px; width: 6px; height: 6px; }
+    .s2-dots span:nth-child(5) { top: 36px; left: 28px; }
+    .s2-dots span:nth-child(6) { top: 42px; left: 52px; width: 10px; height: 10px; }
+    .s2-dots span:nth-child(7) { top: 22px; left: 70px; width: 5px; height: 5px; }
+
+    .s2-logo {
+      position: absolute;
+      bottom: 22px; left: 50%;
+      transform: translateX(-50%);
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: #000;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 5;
+    }
+    .s2-logo .play-tri {
+      width: 0; height: 0;
+      border-left: 7px solid #000;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+    }
+
+
+    /* ────────────── SCENE 3 ────────────── */
+    .scene-3 { background: #ede8dc; }
+
+    .s3-doodle {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      overflow: visible;
+    }
+
+    .s3-doodle-path {
+      stroke: #1a1a1a;
+      stroke-width: 2.8;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 6000;
+      stroke-dashoffset: 6000;
+      animation: s3DoodleDraw 3s ease-in-out 21.2s forwards;
+    }
+
+    @keyframes s3DoodleDraw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .s3-text {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 30px;
+      font-weight: 700;
+      font-style: italic;
+      color: #000;
+      text-align: center;
+      letter-spacing: -0.3px;
+      padding: 0 50px;
+      line-height: 1.3;
+      z-index: 5;
+      opacity: 0;
+      animation: s3TextIn 0.6s ease 22.8s forwards;
+    }
+    @keyframes s3TextIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .s3-arch {
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%) translateY(110%);
+      width: 600px; height: 380px;
+      z-index: 3;
+      animation: s3ArchRise 8s cubic-bezier(0.5, 0, 0.5, 1) 21s forwards;
+    }
+    @keyframes s3ArchRise {
+      0%   { transform: translateX(-50%) translateY(110%); }
+      20%  { transform: translateX(-50%) translateY(35%); }
+      75%  { transform: translateX(-50%) translateY(35%); }
+      95%  { transform: translateX(-50%) translateY(110%); }
+      100% { transform: translateX(-50%) translateY(110%); }
+    }
+
+
+    /* ────────────── SCENE 4 ────────────── */
+    .scene-4 { background: #ede8dc; }
+
+    .s4-text {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 30px;
+      font-weight: 700;
+      font-style: italic;
+      color: #000;
+      text-align: center;
+      letter-spacing: -0.3px;
+      padding: 0 50px;
+      line-height: 1.3;
+      z-index: 5;
+      opacity: 0;
+      animation: s4TextIn 0.6s ease 30.5s forwards;
+    }
+    @keyframes s4TextIn {
+      0%   { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .s4-barcode {
+      position: absolute;
+      top: 0; left: 0;
+      width: 900px; height: 100%;
+      display: flex;
+      align-items: stretch;
+      gap: 2px;
+      transform: translateX(-100%);
+      z-index: 2;
+      animation: s4BarcodeSlide 8s cubic-bezier(0.5, 0, 0.5, 1) 21s forwards;
+    }
+    @keyframes s4BarcodeSlide {
+      0%   { transform: translateX(-100%); }
+      18%  { transform: translateX(0); }
+      75%  { transform: translateX(0); }
+      100% { transform: translateX(100%); }
+    }
+
+    .s4-bar {
+      flex: 1;
+      background: linear-gradient(to bottom, #000 0%, #000 50%, #fff 50%, #fff 100%);
+    }
+    .s4-bar.b2 { background: linear-gradient(to bottom, #fff 0%, #fff 40%, #000 40%, #000 100%); }
+    .s4-bar.b3 { background: linear-gradient(to bottom, #000 0%, #000 70%, #fff 70%, #fff 100%); }
+    .s4-bar.b4 { background: linear-gradient(to bottom, #fff 0%, #fff 20%, #000 20%, #000 80%, #fff 80%, #fff 100%); }
+    .s4-bar.b5 { background: linear-gradient(to bottom, #000 0%, #000 30%, #fff 30%, #fff 60%, #000 60%, #000 100%); }
+    .s4-bar.b6 { background: linear-gradient(to bottom, #fff 0%, #fff 50%, #000 50%, #000 100%); }
+
+    .s4-bar.color-flash {
+      animation: s4ColorFlash 2.5s ease 31.5s forwards;
+    }
+    @keyframes s4ColorFlash {
+      0%   { background: linear-gradient(to bottom, #000 0%, #000 50%, #fff 50%, #fff 100%); }
+      25%  { background: linear-gradient(to bottom, #6b4eff 0%, #6b4eff 50%, #fff 50%, #fff 100%); }
+      75%  { background: linear-gradient(to bottom, #6b4eff 0%, #6b4eff 50%, #fff 50%, #fff 100%); }
+      100% { background: linear-gradient(to bottom, #000 0%, #000 50%, #fff 50%, #fff 100%); }
+    }
+
+
+    /* ────────────── SCENE 5 ────────────── */
+    .scene-5 {
+      background: #000;
+      overflow: hidden;
+    }
+
+    .s5-checker-bg {
+      position: absolute;
+      inset: -10%;
+      background-image:
+        linear-gradient(45deg, #000 25%, transparent 25%),
+        linear-gradient(-45deg, #000 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #000 75%),
+        linear-gradient(-45deg, transparent 75%, #000 75%);
+      background-size: 60px 60px;
+      background-position: 0 0, 0 30px, 30px -30px, -30px 0;
+      background-color: #fff;
+      z-index: 1;
+      animation: s5BgWarp 4s ease-in-out infinite alternate;
+      transform-origin: center;
+    }
+    @keyframes s5BgWarp {
+      0%   { transform: scale(1) rotate(0deg) skew(0deg, 0deg); }
+      50%  { transform: scale(1.05) rotate(2deg) skew(1deg, 1deg); }
+      100% { transform: scale(1) rotate(-2deg) skew(-1deg, -1deg); }
+    }
+
+    .s5-2025-wrap {
+      position: relative;
+      width: 100%;
+      height: 170px;
+      z-index: 4;
+    }
+
+    .s5-num-half {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 130px;
+      font-weight: 900;
+      font-style: italic;
+      color: #ff6b1a;
+      letter-spacing: -4px;
+      line-height: 1;
+      white-space: nowrap;
+      text-shadow: 3px 3px 0 #000;
+    }
+
+    .s5-num-top {
+      clip-path: inset(0 0 50% 0);
+      transform: translateY(-160%);
+      animation: s5TopFall 0.6s cubic-bezier(0.25, 1.2, 0.5, 1) 0.4s forwards;
+    }
+    .s5-num-bot {
+      clip-path: inset(50% 0 0 0);
+      transform: translateY(160%);
+      animation: s5BotRise 0.6s cubic-bezier(0.25, 1.2, 0.5, 1) 0.4s forwards;
+    }
+
+    @keyframes s5TopFall {
+      0%   { transform: translateY(-160%); }
+      100% { transform: translateY(0); }
+    }
+    @keyframes s5BotRise {
+      0%   { transform: translateY(160%); }
+      100% { transform: translateY(0); }
+    }
+
+    .s5-title {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      z-index: 6;
+      text-align: center;
+      font-size: 38px;
+      font-weight: 900;
+      font-style: italic;
+      color: #000;
+      line-height: 1;
+      letter-spacing: -1px;
+      text-shadow:
+        -2px -2px 0 #fff, 2px -2px 0 #fff,
+        -2px 2px 0 #fff,  2px 2px 0 #fff,
+        -3px 0 0 #fff,    3px 0 0 #fff,
+        0 -3px 0 #fff,    0 3px 0 #fff;
+      opacity: 0;
+      animation: s5TitlePop 0.5s cubic-bezier(0.25, 1.6, 0.5, 1) 1.2s forwards;
+    }
+    .s5-title span { display: block; padding: 2px 0; }
+
+    @keyframes s5TitlePop {
+      0%   { opacity: 0; transform: translate(-50%, -50%) scale(0) rotate(-10deg); }
+      60%  { opacity: 1; transform: translate(-50%, -50%) scale(1.15) rotate(2deg); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+    }
+
+
+    /* ════════════════════════════════════════════
+       CARDS GRID (appears after intro)
+    ════════════════════════════════════════════ */
+    .cards-grid {
       padding: 32px 24px;
       display: flex;
       flex-wrap: wrap;
       gap: 28px;
       justify-content: center;
       align-items: flex-start;
+      opacity: 0;
+      animation: cardsAppear 1.5s ease 36s forwards;
+    }
+    @keyframes cardsAppear {
+      0%   { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     .page-header {
@@ -45,7 +556,6 @@
       padding-left: 2px;
     }
 
-    /* ── Shared: checkerboard placeholder ── */
     .checker {
       background-image:
         linear-gradient(45deg, #bbb 25%, transparent 25%),
@@ -57,738 +567,548 @@
       background-color: #999;
     }
 
-    /* ── Shared: Spotify footer ── */
-    .sp-footer {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-    }
-    .sp-url {
-      font-family: Arial, sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.4px;
-    }
+    .sp-footer { display: flex; align-items: center; gap: 8px; padding: 10px 14px; }
+    .sp-url { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.4px; }
 
-    /* ── Shared: Spotify SVG logo (inline, reused) ── */
-
-
-    /* ════════════════════════════════════════════════
-       1. THE TOPS
-    ════════════════════════════════════════════════ */
-    .tops-card {
-      width: 300px;
-      background: #ffffff;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.2);
-    }
-
-    .tops-img {
-      background: #000;
-      position: relative;
-      height: 270px;
-      overflow: hidden;
-    }
-
-    .tops-label {
-      position: absolute;
-      top: 10px; left: 14px;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      z-index: 10;
-    }
-
-    .tops-year {
-      position: absolute;
-      left: -30px; top: 50%;
-      transform: translateY(-50%) rotate(-90deg);
-      color: #f5c800;
-      font-size: 68px;
-      font-weight: 900;
-      font-style: italic;
-      letter-spacing: -2px;
-      z-index: 10;
-      white-space: nowrap;
-    }
-
-    .tops-album-art {
-      position: absolute;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      width: 160px; height: 160px;
-      z-index: 5;
-    }
-
-    .tops-stripes {
-      position: absolute;
-      right: 0; top: 0;
-      width: 86px; height: 100%;
-      z-index: 4;
-      overflow: hidden;
-    }
-
-    .tops-stats {
-      background: #fff;
-      padding: 14px 14px 0;
-    }
-
+    /* THE TOPS */
+    .tops-card { width: 300px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+    .tops-img { background: #000; position: relative; height: 270px; overflow: hidden; }
+    .tops-label { position: absolute; top: 10px; left: 14px; color: #fff; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; z-index: 10; }
+    .tops-year { position: absolute; left: -30px; top: 50%; transform: translateY(-50%) rotate(-90deg); color: #f5c800; font-size: 68px; font-weight: 900; font-style: italic; letter-spacing: -2px; z-index: 10; white-space: nowrap; }
+    .tops-album-art { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 160px; height: 160px; z-index: 5; }
+    .tops-stripes { position: absolute; right: 0; top: 0; width: 86px; height: 100%; z-index: 4; overflow: hidden; }
+    .tops-stats { background: #fff; padding: 14px 14px 0; }
     .tops-two-col { display: flex; gap: 18px; margin-bottom: 12px; }
     .tops-col { flex: 1; }
     .tops-col-title { font-size: 10px; font-weight: 700; color: #000; margin-bottom: 5px; }
     .tops-list { list-style: none; }
     .tops-list li { display: flex; gap: 5px; font-size: 10px; color: #000; margin-bottom: 3px; }
     .tops-list li .r { font-weight: 700; min-width: 8px; }
-
     .tops-bottom { display: flex; gap: 18px; margin-bottom: 12px; }
     .tops-stat { flex: 1; }
     .tops-stat-lbl { font-size: 10px; font-weight: 700; color: #000; margin-bottom: 2px; }
     .tops-stat-big { font-size: 28px; font-weight: 900; color: #000; letter-spacing: -1px; line-height: 1.1; }
     .tops-stat-med { font-size: 24px; font-weight: 900; color: #000; line-height: 1.1; }
-
     .tops-footer { background: #000; }
     .tops-footer .sp-url { color: #fff; }
 
-
-    /* ════════════════════════════════════════════════
-       2. MY TOP GENRES
-    ════════════════════════════════════════════════ */
-    .genres-card {
-      width: 260px;
-      background: #ede8dc;
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-    .genres-heading {
-      text-align: center;
-      padding: 14px 12px 10px;
-      font-size: 17px;
-      font-weight: 900;
-      color: #000;
-      letter-spacing: -0.3px;
-    }
-
+    /* GENRES */
+    .genres-card { width: 260px; background: #ede8dc; border-radius: 14px; overflow: hidden; }
+    .genres-heading { text-align: center; padding: 14px 12px 10px; font-size: 17px; font-weight: 900; color: #000; letter-spacing: -0.3px; }
     .genres-rows { padding: 0 10px; display: flex; flex-direction: column; gap: 4px; }
-
     .genres-row { display: flex; align-items: center; gap: 5px; }
-
-    .genres-num {
-      font-family: Arial, sans-serif;
-      font-size: 12px; font-weight: 700; color: #000;
-      width: 14px; text-align: right; flex-shrink: 0;
-    }
-
-    .genres-bar {
-      flex: 1;
-      background: #000; color: #fff;
-      font-weight: 900; font-size: 38px;
-      line-height: 1; padding: 5px 8px 3px;
-      white-space: nowrap; overflow: hidden;
-    }
-
+    .genres-num { font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #000; width: 14px; text-align: right; flex-shrink: 0; }
+    .genres-bar { flex: 1; background: #000; color: #fff; font-weight: 900; font-size: 38px; line-height: 1; padding: 5px 8px 3px; white-space: nowrap; overflow: hidden; }
     .genres-bar.sm { font-size: 25px; padding: 10px 8px 8px; }
-
     .genres-deco { position: relative; height: 88px; }
-
     .genres-footer { background: #ede8dc; }
     .genres-footer .sp-url { color: #000; }
 
-
-    /* ════════════════════════════════════════════════
-       3. MY TOP ALBUMS
-    ════════════════════════════════════════════════ */
-    .albums-card {
-      width: 260px;
-      background: #ede8dc;
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
+    /* ALBUMS */
+    .albums-card { width: 260px; background: #ede8dc; border-radius: 14px; overflow: hidden; }
     .albums-header { padding: 14px 14px 10px; text-align: center; }
-
-    .albums-title-hl {
-      display: inline-block;
-      background: #f5c800;
-      font-size: 16px; font-weight: 900; color: #000;
-      padding: 2px 10px; letter-spacing: -0.3px;
-    }
-
+    .albums-title-hl { display: inline-block; background: #f5c800; font-size: 16px; font-weight: 900; color: #000; padding: 2px 10px; letter-spacing: -0.3px; }
     .albums-grid-wrap { position: relative; padding: 0 18px; }
-
     .albums-grid { border: 2px solid #000; position: relative; z-index: 5; }
-
-    .albums-row-top {
-      display: flex; height: 110px;
-      border-bottom: 2px solid #000;
-    }
+    .albums-row-top { display: flex; height: 110px; border-bottom: 2px solid #000; }
     .albums-row-top .ac { flex: 1; }
     .albums-row-top .ac:first-child { border-right: 2px solid #000; }
-
     .albums-row-bot { display: flex; height: 80px; }
     .albums-row-bot .ac { flex: 1; }
     .albums-row-bot .ac:not(:last-child) { border-right: 2px solid #000; }
-
     .ac { position: relative; overflow: hidden; }
-    .ac-num {
-      position: absolute; bottom: 4px; right: 4px;
-      font-family: Arial, sans-serif;
-      font-size: 10px; font-weight: 700; color: #fff;
-      background: rgba(0,0,0,0.65);
-      padding: 1px 3px; line-height: 1.2; z-index: 2;
-    }
-
-    .albums-deco-left, .albums-deco-right {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      z-index: 6; display: flex; flex-direction: column; gap: 3px;
-    }
+    .ac-num { position: absolute; bottom: 4px; right: 4px; font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; color: #fff; background: rgba(0,0,0,0.65); padding: 1px 3px; line-height: 1.2; z-index: 2; }
+    .albums-deco-left, .albums-deco-right { position: absolute; top: 50%; transform: translateY(-50%); z-index: 6; display: flex; flex-direction: column; gap: 3px; }
     .albums-deco-left  { left: 2px; }
     .albums-deco-right { right: 2px; }
     .a-disc    { width: 14px; height: 14px; background: #000; border-radius: 50%; }
     .a-disc-lg { width: 18px; height: 18px; background: #000; border-radius: 50%; }
-
     .albums-list { padding: 8px 14px 10px; }
     .albums-item { display: flex; gap: 6px; margin-bottom: 5px; align-items: flex-start; }
     .albums-item-num { font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #000; min-width: 12px; }
     .albums-item-title { font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #000; line-height: 1.2; }
     .albums-item-artist { font-family: Arial, sans-serif; font-size: 10px; color: #666; line-height: 1.2; }
-
     .albums-footer { background: #ede8dc; }
     .albums-footer .sp-url { color: #000; }
 
-
-    /* ════════════════════════════════════════════════
-       4. MY TOP ARTISTS
-    ════════════════════════════════════════════════ */
-    .artists-card {
-      width: 260px;
-      background: #0e0e12;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 3px solid #4f82ff;
-    }
-
-    .artists-inner {
-      padding: 14px 14px 6px;
-      position: relative; overflow: hidden;
-      min-height: 340px;
-    }
-
-    .artists-title {
-      text-align: center;
-      font-size: 15px; font-weight: 900; color: #fff;
-      margin-bottom: 12px;
-      position: relative; z-index: 10;
-    }
-
+    /* ARTISTS */
+    .artists-card { width: 260px; background: #0e0e12; border-radius: 14px; overflow: hidden; border: 3px solid #4f82ff; }
+    .artists-inner { padding: 14px 14px 6px; position: relative; overflow: hidden; min-height: 340px; }
+    .artists-title { text-align: center; font-size: 15px; font-weight: 900; color: #fff; margin-bottom: 12px; position: relative; z-index: 10; }
     .artists-squiggle { position: absolute; top: 8px; right: 8px; z-index: 10; }
-
-    .artists-row {
-      display: flex; align-items: center; gap: 8px;
-      margin-bottom: 8px;
-      position: relative; z-index: 10;
-    }
+    .artists-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; position: relative; z-index: 10; }
     .artists-row-num { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: #fff; width: 14px; flex-shrink: 0; }
     .artists-row-thumb { width: 38px; height: 38px; flex-shrink: 0; }
-    .artists-row-name {
-      flex: 1; background: #2a2a2a; color: #fff;
-      font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-      padding: 9px 10px; line-height: 1;
-    }
-
+    .artists-row-name { flex: 1; background: #2a2a2a; color: #fff; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; padding: 9px 10px; line-height: 1; }
     .artists-arcs-left  { position: absolute; left: -6px; bottom: -6px; z-index: 2; pointer-events: none; }
-    .artists-arcs-right { position: absolute; right: -6px; top: -6px;   z-index: 2; pointer-events: none; }
-
+    .artists-arcs-right { position: absolute; right: -6px; top: -6px; z-index: 2; pointer-events: none; }
     .artists-footer { background: #0e0e12; border-top: 1px solid #222; }
     .artists-footer .sp-url { color: #fff; }
 
-
-    /* ════════════════════════════════════════════════
-       5. MY TOP ARTIST
-    ════════════════════════════════════════════════ */
-    .artist-card {
-      width: 260px;
-      background: #111;
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
+    /* ARTIST */
+    .artist-card { width: 260px; background: #111; border-radius: 14px; overflow: hidden; }
     .artist-top { position: relative; height: 210px; overflow: hidden; background: #111; }
-
-    .artist-funnel {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; z-index: 2;
-    }
-
-    .artist-circle-wrap {
-      position: absolute; left: 50%; top: 52%;
-      transform: translate(-50%, -50%); z-index: 5;
-    }
-
-    .artist-circle {
-      width: 158px; height: 158px;
-      border-radius: 50%;
-      border: 5px solid #00c8ff;
-      overflow: hidden;
-      box-shadow: 0 0 18px rgba(0,200,255,0.45);
-    }
-
+    .artist-funnel { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; }
+    .artist-circle-wrap { position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%); z-index: 5; }
+    .artist-circle { width: 158px; height: 158px; border-radius: 50%; border: 5px solid #00c8ff; overflow: hidden; box-shadow: 0 0 18px rgba(0,200,255,0.45); }
     .artist-body { padding: 10px 16px 14px; }
     .artist-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #ccc; margin-bottom: 2px; }
     .artist-name  { font-size: 26px; font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 10px; }
     .artist-divider { height: 1px; background: #333; margin-bottom: 10px; }
     .artist-stat-lbl { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #ccc; margin-bottom: 1px; }
     .artist-stat-val { font-size: 32px; font-weight: 900; color: #fff; letter-spacing: -1px; line-height: 1.1; margin-bottom: 4px; }
-    .artist-global   { font-family: Arial, sans-serif; font-size: 12px; color: #ccc; margin-bottom: 10px; }
-
+    .artist-global { font-family: Arial, sans-serif; font-size: 12px; color: #ccc; margin-bottom: 10px; }
     .artist-footer { background: #111; border-top: 1px solid #222; }
     .artist-footer .sp-url { color: #fff; }
 
-
-    /* ════════════════════════════════════════════════
-       6. MY TOP SONGS
-    ════════════════════════════════════════════════ */
-    .songs-card {
-      width: 260px;
-      background: #111;
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-    .songs-img-area {
-      position: relative; background: #111;
-      height: 90px; overflow: hidden;
-    }
-
+    /* SONGS */
+    .songs-card { width: 260px; background: #111; border-radius: 14px; overflow: hidden; }
+    .songs-img-area { position: relative; background: #111; height: 90px; overflow: hidden; }
     .songs-waves { position: absolute; top: 0; left: 0; }
-
-    .songs-label {
-      position: absolute; bottom: 10px; left: 50%;
-      transform: translateX(-50%);
-      background: #fff; color: #000;
-      font-size: 13px; font-weight: 900;
-      padding: 4px 14px; white-space: nowrap;
-      letter-spacing: -0.2px;
-    }
-
+    .songs-label { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; font-size: 13px; font-weight: 900; padding: 4px 14px; white-space: nowrap; letter-spacing: -0.2px; }
     .songs-list { padding: 10px 12px 4px; }
-
-    .songs-item {
-      display: flex; align-items: center; gap: 9px;
-      padding: 7px 0;
-      border-bottom: 1px solid #2a2a2a;
-    }
+    .songs-item { display: flex; align-items: center; gap: 9px; padding: 7px 0; border-bottom: 1px solid #2a2a2a; }
     .songs-item:last-child { border-bottom: none; }
-
     .songs-num  { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: #fff; width: 14px; flex-shrink: 0; text-align: right; }
     .songs-thumb { width: 36px; height: 36px; flex-shrink: 0; }
     .songs-info { flex: 1; overflow: hidden; }
-    .songs-title  { font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+    .songs-title { font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
     .songs-artist { font-family: Arial, sans-serif; font-size: 10px; color: #888; line-height: 1.3; }
-
     .songs-footer { background: #111; border-top: 1px solid #222; }
     .songs-footer .sp-url { color: #fff; }
 
-
-    /* ════════════════════════════════════════════════
-       7. MY LISTENING AGE
-    ════════════════════════════════════════════════ */
-    .age-card {
-      width: 260px;
-      background: #e4e4e4;
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex; flex-direction: column;
-    }
-
-    .age-body {
-      flex: 1;
-      display: flex; flex-direction: column;
-      justify-content: space-between;
-      padding: 20px 18px 18px;
-    }
-
-    .age-heading {
-      font-size: 17px; font-weight: 900; color: #000;
-      letter-spacing: -0.3px; text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .age-num {
-      font-size: 110px; font-weight: 900;
-      color: #9381e8; line-height: 1; letter-spacing: -4px;
-      text-align: center; margin: 16px 0 20px;
-    }
-
-    .age-since {
-      font-family: Arial, sans-serif;
-      font-size: 13px; color: #333; line-height: 1.5; text-align: center;
-    }
+    /* AGE */
+    .age-card { width: 260px; background: #e4e4e4; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+    .age-body { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 20px 18px 18px; }
+    .age-heading { font-size: 17px; font-weight: 900; color: #000; letter-spacing: -0.3px; text-align: center; margin-bottom: 10px; }
+    .age-num { font-size: 110px; font-weight: 900; color: #9381e8; line-height: 1; letter-spacing: -4px; text-align: center; margin: 16px 0 20px; }
+    .age-since { font-family: Arial, sans-serif; font-size: 13px; color: #333; line-height: 1.5; text-align: center; }
     .age-since strong { font-weight: 900; color: #000; }
-
     .age-footer { background: #e4e4e4; border-top: 1px solid #ccc; }
     .age-footer .sp-url { color: #000; }
 
-
-    /* ════════════════════════════════════════════════
-       8. MY MINUTES LISTENED
-    ════════════════════════════════════════════════ */
-    .mins-card {
-      width: 260px;
-      background: #111;
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex; flex-direction: column;
-    }
-
-    .mins-body {
-      flex: 1;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-      padding: 28px 18px 24px; text-align: center;
-    }
-
+    /* MINUTES */
+    .mins-card { width: 260px; background: #111; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+    .mins-body { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 28px 18px 24px; text-align: center; }
     .mins-heading { font-size: 16px; font-weight: 900; color: #fff; letter-spacing: -0.3px; margin-bottom: 14px; }
-
-    .mins-num {
-      font-size: 72px; font-weight: 900;
-      color: #9381e8; line-height: 1; letter-spacing: -3px;
-      margin-bottom: 14px;
-    }
-
+    .mins-num { font-size: 72px; font-weight: 900; color: #9381e8; line-height: 1; letter-spacing: -3px; margin-bottom: 14px; }
     .mins-days { font-family: Arial, sans-serif; font-size: 13px; color: #ccc; }
     .mins-days strong { color: #fff; font-weight: 900; }
-
     .mins-footer { background: #111; border-top: 1px solid #222; }
     .mins-footer .sp-url { color: #fff; }
   </style>
 </head>
 <body>
 
-  <div class="page-header">Spotify Wrapped 2025 — All Slides</div>
+  <!-- ════════ INTRO ANIMATION STAGE ════════ -->
+  <div class="intro-stage" id="introStage">
 
-  <!-- ════════ 1. THE TOPS ════════ -->
-  <div class="card-section">
-    <span class="page-label">The Tops</span>
-    <div class="tops-card">
+    <!-- SCENE 5 (plays first) -->
+    <div class="scene scene-5">
+      <div class="s5-checker-bg"></div>
+      <div class="s5-2025-wrap">
+        <div class="s5-num-half s5-num-top">2025</div>
+        <div class="s5-num-half s5-num-bot">2025</div>
+      </div>
+      <div class="s5-title">
+        <span>Your 2025</span>
+        <span>Spotify Wrapped</span>
+        <span>is Here</span>
+      </div>
+    </div>
 
-      <div class="tops-img">
-        <span class="tops-label">The Tops</span>
-        <div class="tops-year">2025</div>
+    <!-- SCENE 1 -->
+    <div class="scene scene-1">
+      <div class="s1-oval"></div>
+      <svg class="s1-wavy" viewBox="0 0 110 30">
+        <path d="M 0 15 Q 12 0 24 15 T 48 15 T 72 15 T 96 15" stroke="#000" stroke-width="1.5" fill="none"/>
+      </svg>
+      <div class="s1-text">You Played "Bad Romance"<br>32 times this year.</div>
+      <div class="s1-subtext">You're in the top 1% of Lady Gaga fans</div>
+      <div class="s1-logo"><span class="play-tri"></span>outtbe</div>
+      <svg class="s1-arc" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#fff" d="M 0,0 L 35,0 A 35,35 0 0 0 0,35 Z"/>
+        <path fill="#000" d="M 35,0 L 70,0 A 70,70 0 0 0 0,70 L 0,35 A 35,35 0 0 1 35,0 Z"/>
+        <path fill="#fff" d="M 70,0 L 105,0 A 105,105 0 0 0 0,105 L 0,70 A 70,70 0 0 1 70,0 Z"/>
+        <path fill="#000" d="M 105,0 L 140,0 A 140,140 0 0 0 0,140 L 0,105 A 105,105 0 0 1 105,0 Z"/>
+        <path fill="#fff" d="M 140,0 L 175,0 A 175,175 0 0 0 0,175 L 0,140 A 140,140 0 0 1 140,0 Z"/>
+        <path fill="#000" d="M 175,0 L 210,0 A 210,210 0 0 0 0,210 L 0,175 A 175,175 0 0 1 175,0 Z"/>
+        <path fill="#fff" d="M 210,0 L 245,0 A 245,245 0 0 0 0,245 L 0,210 A 210,210 0 0 1 210,0 Z"/>
+        <path fill="#000" d="M 245,0 L 280,0 A 280,280 0 0 0 0,280 L 0,245 A 245,245 0 0 1 245,0 Z"/>
+      </svg>
+    </div>
 
-        <div class="tops-album-art checker"></div>
+    <!-- SCENE 2 -->
+    <div class="scene scene-2">
+      <div class="s2-burst">
+        <div class="s2-c s2-c1"></div><div class="s2-c s2-c2"></div><div class="s2-c s2-c3"></div>
+        <div class="s2-c s2-c4"></div><div class="s2-c s2-c5"></div><div class="s2-c s2-c6"></div>
+        <div class="s2-c s2-c7"></div><div class="s2-c s2-c8"></div><div class="s2-c s2-c9"></div>
+        <div class="s2-c s2-c10"></div><div class="s2-c s2-c11"></div><div class="s2-c s2-c12"></div>
+      </div>
+      <div class="s2-header">Your Top Genres</div>
+      <div class="s2-list">
+        <div class="s2-item s2-item-1"><span class="s2-item-num">1</span> Electronica</div>
+        <div class="s2-item s2-item-2"><span class="s2-item-num">2</span> Soundtrack</div>
+        <div class="s2-item s2-item-3"><span class="s2-item-num">3</span> Indie Pop</div>
+        <div class="s2-item s2-item-4"><span class="s2-item-num">4</span> Indie</div>
+        <div class="s2-item s2-item-5"><span class="s2-item-num">5</span> Groove And Holler</div>
+      </div>
+      <div class="s2-dots">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="s2-logo"><span class="play-tri"></span>outtbe</div>
+    </div>
 
-        <div class="tops-stripes">
-          <svg viewBox="0 0 86 270" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="ws" x="0" y="0" width="18" height="270" patternUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="9" height="270" fill="#fff"/>
-                <rect x="9" y="0" width="9" height="270" fill="#000"/>
-              </pattern>
-              <clipPath id="wc">
-                <path d="M 0 0 Q 11 34 0 68 Q -11 102 0 136 Q 11 170 0 204 Q -11 238 0 270 L 86 270 Q 75 236 86 202 Q 97 168 86 134 Q 75 100 86 66 Q 97 32 86 0 Z"/>
-              </clipPath>
-            </defs>
-            <rect x="0" y="0" width="86" height="270" fill="url(#ws)" clip-path="url(#wc)"/>
-            <path d="M 13 0 Q 25 34 13 68 Q 1 102 13 136 Q 25 170 13 204 Q 1 238 13 270" stroke="#000" stroke-width="1.5" fill="none"/>
-            <path d="M 27 0 Q 39 34 27 68 Q 15 102 27 136 Q 39 170 27 204 Q 15 238 27 270" stroke="#000" stroke-width="1.5" fill="none"/>
-            <path d="M 41 0 Q 53 34 41 68 Q 29 102 41 136 Q 53 170 41 204 Q 29 238 41 270" stroke="#000" stroke-width="1.5" fill="none"/>
-            <path d="M 55 0 Q 67 34 55 68 Q 43 102 55 136 Q 67 170 55 204 Q 43 238 55 270" stroke="#000" stroke-width="1.5" fill="none"/>
-            <path d="M 69 0 Q 81 34 69 68 Q 57 102 69 136 Q 81 170 69 204 Q 57 238 69 270" stroke="#000" stroke-width="1.5" fill="none"/>
+    <!-- SCENE 3 -->
+    <div class="scene scene-3">
+      <svg class="s3-doodle" viewBox="0 0 900 640" xmlns="http://www.w3.org/2000/svg">
+        <path class="s3-doodle-path" d="
+          M 960,-40
+          C 920,80 660,100 450,130
+          C 622,126 762,213 760,312
+          C 762,411 622,492 450,488
+          C 278,494 138,409 140,312
+          C 138,211 296,146 450,148
+          C 609,144 737,223 735,312
+          C 737,401 609,474 450,470
+          C 291,476 163,399 165,312
+          C 163,221 310,165 450,163
+          C 595,159 712,233 710,312
+          C 712,391 596,455 450,451
+          C 304,457 188,389 190,312
+          C 188,231 321,183 450,180
+          C 584,176 692,242 690,312
+          C 692,382 585,440 450,436
+        "/>
+      </svg>
+      <div class="s3-text">This Year, You Wasted<br>120 hours skipping songs.</div>
+      <svg class="s3-arch" viewBox="0 0 600 380" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#000"    d="M 0,380 A 300,300 0 0 1 600,380 L 540,380 A 240,240 0 0 0 60,380 Z"/>
+        <path fill="#6b4eff" d="M 60,380 A 240,240 0 0 1 540,380 L 480,380 A 180,180 0 0 0 120,380 Z"/>
+        <path fill="#000"    d="M 120,380 A 180,180 0 0 1 480,380 L 420,380 A 120,120 0 0 0 180,380 Z"/>
+        <path fill="#6b4eff" d="M 180,380 A 120,120 0 0 1 420,380 L 360,380 A 60,60 0 0 0 240,380 Z"/>
+        <path fill="#000"    d="M 240,380 A 60,60 0 0 1 360,380 Z"/>
+      </svg>
+    </div>
+
+    <!-- SCENE 4 -->
+    <div class="scene scene-4">
+      <div class="s4-barcode">
+        <div class="s4-bar b1"></div><div class="s4-bar b2"></div><div class="s4-bar b3"></div>
+        <div class="s4-bar b4"></div><div class="s4-bar b5"></div><div class="s4-bar b6"></div>
+        <div class="s4-bar b1"></div><div class="s4-bar b3"></div><div class="s4-bar b2"></div>
+        <div class="s4-bar b5"></div><div class="s4-bar b4"></div><div class="s4-bar b6"></div>
+        <div class="s4-bar b1"></div><div class="s4-bar b3"></div><div class="s4-bar b5"></div>
+        <div class="s4-bar b2 color-flash"></div>
+        <div class="s4-bar b4 color-flash"></div>
+        <div class="s4-bar b1 color-flash"></div>
+        <div class="s4-bar b6 color-flash"></div>
+        <div class="s4-bar b3"></div><div class="s4-bar b2"></div><div class="s4-bar b5"></div>
+        <div class="s4-bar b1"></div><div class="s4-bar b4"></div><div class="s4-bar b6"></div>
+        <div class="s4-bar b3"></div><div class="s4-bar b2"></div><div class="s4-bar b1"></div>
+        <div class="s4-bar b5"></div><div class="s4-bar b4"></div>
+      </div>
+      <div class="s4-text">This Year, You Wasted<br>120 hours skipping songs.</div>
+    </div>
+
+    <button class="replay-btn" onclick="replayIntro()">&#8634; Replay</button>
+  </div>
+
+
+  <!-- ════════ STATIC CARDS ════════ -->
+  <div class="cards-grid" id="cardsGrid">
+    <div class="page-header">Spotify Wrapped 2025 — All Slides</div>
+
+    <!-- 1. The Tops -->
+    <div class="card-section">
+      <span class="page-label">The Tops</span>
+      <div class="tops-card">
+        <div class="tops-img">
+          <span class="tops-label">The Tops</span>
+          <div class="tops-year">2025</div>
+          <div class="tops-album-art checker"></div>
+          <div class="tops-stripes">
+            <svg viewBox="0 0 86 270" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="ws" x="0" y="0" width="18" height="270" patternUnits="userSpaceOnUse">
+                  <rect x="0" y="0" width="9" height="270" fill="#fff"/>
+                  <rect x="9" y="0" width="9" height="270" fill="#000"/>
+                </pattern>
+                <clipPath id="wc">
+                  <path d="M 0 0 Q 11 34 0 68 Q -11 102 0 136 Q 11 170 0 204 Q -11 238 0 270 L 86 270 Q 75 236 86 202 Q 97 168 86 134 Q 75 100 86 66 Q 97 32 86 0 Z"/>
+                </clipPath>
+              </defs>
+              <rect x="0" y="0" width="86" height="270" fill="url(#ws)" clip-path="url(#wc)"/>
+              <path d="M 13 0 Q 25 34 13 68 Q 1 102 13 136 Q 25 170 13 204 Q 1 238 13 270" stroke="#000" stroke-width="1.5" fill="none"/>
+              <path d="M 27 0 Q 39 34 27 68 Q 15 102 27 136 Q 39 170 27 204 Q 15 238 27 270" stroke="#000" stroke-width="1.5" fill="none"/>
+              <path d="M 41 0 Q 53 34 41 68 Q 29 102 41 136 Q 53 170 41 204 Q 29 238 41 270" stroke="#000" stroke-width="1.5" fill="none"/>
+              <path d="M 55 0 Q 67 34 55 68 Q 43 102 55 136 Q 67 170 55 204 Q 43 238 55 270" stroke="#000" stroke-width="1.5" fill="none"/>
+              <path d="M 69 0 Q 81 34 69 68 Q 57 102 69 136 Q 81 170 69 204 Q 57 238 69 270" stroke="#000" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="tops-stats">
+          <div class="tops-two-col">
+            <div class="tops-col">
+              <div class="tops-col-title">Top Artists</div>
+              <ul class="tops-list">
+                <li><span class="r">1</span> sombr</li>
+                <li><span class="r">2</span> Lady Gaga</li>
+                <li><span class="r">3</span> Chappell Roan</li>
+                <li><span class="r">4</span> Ravyn Lenae</li>
+                <li><span class="r">5</span> Tinashe</li>
+              </ul>
+            </div>
+            <div class="tops-col">
+              <div class="tops-col-title">Top Songs</div>
+              <ul class="tops-list">
+                <li><span class="r">1</span> back to friends</li>
+                <li><span class="r">2</span> Golden</li>
+                <li><span class="r">3</span> Bad Romance</li>
+                <li><span class="r">4</span> savior</li>
+                <li><span class="r">5</span> Love Me Not</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tops-bottom">
+            <div class="tops-stat">
+              <div class="tops-stat-lbl">Minutes Listened</div>
+              <div class="tops-stat-big">53,623</div>
+            </div>
+            <div class="tops-stat">
+              <div class="tops-stat-lbl">Top Genre</div>
+              <div class="tops-stat-med">Indie</div>
+            </div>
+          </div>
+        </div>
+        <div class="tops-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Genres -->
+    <div class="card-section">
+      <span class="page-label">My Top Genres</span>
+      <div class="genres-card">
+        <div class="genres-heading">My Top Genres</div>
+        <div class="genres-rows">
+          <div class="genres-row"><span class="genres-num">1</span><div class="genres-bar">K-Pop</div></div>
+          <div class="genres-row"><span class="genres-num">2</span><div class="genres-bar">Soft Pop</div></div>
+          <div class="genres-row"><span class="genres-num">3</span><div class="genres-bar">Soul</div></div>
+          <div class="genres-row"><span class="genres-num">4</span><div class="genres-bar sm">Gregorian Chant</div></div>
+          <div class="genres-row"><span class="genres-num">5</span><div class="genres-bar">Oldies</div></div>
+        </div>
+        <div class="genres-deco">
+          <svg width="260" height="88" viewBox="0 0 260 88" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="245" cy="-15" r="62" fill="none" stroke="#e8302e" stroke-width="3"/>
+            <circle cx="206" cy="42" r="7" fill="#e8302e"/>
+            <circle cx="36"  cy="46" r="5" fill="#e8302e"/>
+            <circle cx="178" cy="66" r="4" fill="#e8302e"/>
+            <ellipse cx="64"  cy="63" rx="15" ry="9" fill="#1a1a1a"/>
+            <ellipse cx="64"  cy="56" rx="15" ry="9" fill="#000"/>
+            <ellipse cx="64"  cy="49" rx="15" ry="9" fill="#1a1a1a"/>
+            <ellipse cx="214" cy="75" rx="10" ry="6" fill="#1a1a1a"/>
+            <ellipse cx="214" cy="69" rx="10" ry="6" fill="#000"/>
+            <circle cx="130" cy="72" r="13" fill="#000"/>
+            <circle cx="155" cy="80" r="7"  fill="#000"/>
+            <circle cx="100" cy="78" r="5"  fill="#000"/>
+            <path d="M 10 82 C 55 38 155 78 250 28" stroke="#000" stroke-width="2.5" fill="none"/>
           </svg>
         </div>
-      </div>
-
-      <div class="tops-stats">
-        <div class="tops-two-col">
-          <div class="tops-col">
-            <div class="tops-col-title">Top Artists</div>
-            <ul class="tops-list">
-              <li><span class="r">1</span> sombr</li>
-              <li><span class="r">2</span> Lady Gaga</li>
-              <li><span class="r">3</span> Chappell Roan</li>
-              <li><span class="r">4</span> Ravyn Lenae</li>
-              <li><span class="r">5</span> Tinashe</li>
-            </ul>
-          </div>
-          <div class="tops-col">
-            <div class="tops-col-title">Top Songs</div>
-            <ul class="tops-list">
-              <li><span class="r">1</span> back to friends</li>
-              <li><span class="r">2</span> Golden</li>
-              <li><span class="r">3</span> Bad Romance</li>
-              <li><span class="r">4</span> savior</li>
-              <li><span class="r">5</span> Love Me Not</li>
-            </ul>
-          </div>
+        <div class="genres-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
         </div>
-        <div class="tops-bottom">
-          <div class="tops-stat">
-            <div class="tops-stat-lbl">Minutes Listened</div>
-            <div class="tops-stat-big">53,623</div>
-          </div>
-          <div class="tops-stat">
-            <div class="tops-stat-lbl">Top Genre</div>
-            <div class="tops-stat-med">Indie</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tops-footer sp-footer">
-        <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-        <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
       </div>
     </div>
-  </div>
 
-
-  <!-- ════════ 2. MY TOP GENRES ════════ -->
-  <div class="card-section">
-    <span class="page-label">My Top Genres</span>
-    <div class="genres-card">
-
-      <div class="genres-heading">My Top Genres</div>
-
-      <div class="genres-rows">
-        <div class="genres-row"><span class="genres-num">1</span><div class="genres-bar">K-Pop</div></div>
-        <div class="genres-row"><span class="genres-num">2</span><div class="genres-bar">Soft Pop</div></div>
-        <div class="genres-row"><span class="genres-num">3</span><div class="genres-bar">Soul</div></div>
-        <div class="genres-row"><span class="genres-num">4</span><div class="genres-bar sm">Gregorian Chant</div></div>
-        <div class="genres-row"><span class="genres-num">5</span><div class="genres-bar">Oldies</div></div>
-      </div>
-
-      <div class="genres-deco">
-        <svg width="260" height="88" viewBox="0 0 260 88" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="245" cy="-15" r="62" fill="none" stroke="#e8302e" stroke-width="3"/>
-          <circle cx="206" cy="42" r="7" fill="#e8302e"/>
-          <circle cx="36"  cy="46" r="5" fill="#e8302e"/>
-          <circle cx="178" cy="66" r="4" fill="#e8302e"/>
-          <ellipse cx="64"  cy="63" rx="15" ry="9" fill="#1a1a1a"/>
-          <ellipse cx="64"  cy="56" rx="15" ry="9" fill="#000"/>
-          <ellipse cx="64"  cy="49" rx="15" ry="9" fill="#1a1a1a"/>
-          <ellipse cx="214" cy="75" rx="10" ry="6" fill="#1a1a1a"/>
-          <ellipse cx="214" cy="69" rx="10" ry="6" fill="#000"/>
-          <circle cx="130" cy="72" r="13" fill="#000"/>
-          <circle cx="155" cy="80" r="7"  fill="#000"/>
-          <circle cx="100" cy="78" r="5"  fill="#000"/>
-          <path d="M 10 82 C 55 38 155 78 250 28" stroke="#000" stroke-width="2.5" fill="none"/>
-        </svg>
-      </div>
-
-      <div class="genres-footer sp-footer">
-        <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-        <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ════════ 3. MY TOP ALBUMS ════════ -->
-  <div class="card-section">
-    <span class="page-label">My Top Albums</span>
-    <div class="albums-card">
-
-      <div class="albums-header">
-        <span class="albums-title-hl">My Top Albums</span>
-      </div>
-
-      <div class="albums-grid-wrap">
-        <div class="albums-deco-left">
-          <div class="a-disc-lg"></div><div class="a-disc"></div>
-          <div class="a-disc-lg"></div><div class="a-disc"></div>
-        </div>
-        <div class="albums-deco-right">
-          <div class="a-disc"></div><div class="a-disc-lg"></div>
-          <div class="a-disc"></div><div class="a-disc-lg"></div>
-        </div>
-        <div class="albums-grid">
-          <div class="albums-row-top">
-            <div class="ac checker"><span class="ac-num">1</span></div>
-            <div class="ac checker"><span class="ac-num">2</span></div>
-          </div>
-          <div class="albums-row-bot">
-            <div class="ac checker"><span class="ac-num">3</span></div>
-            <div class="ac checker"><span class="ac-num">4</span></div>
-            <div class="ac checker"><span class="ac-num">5</span></div>
+    <!-- 3. Albums -->
+    <div class="card-section">
+      <span class="page-label">My Top Albums</span>
+      <div class="albums-card">
+        <div class="albums-header"><span class="albums-title-hl">My Top Albums</span></div>
+        <div class="albums-grid-wrap">
+          <div class="albums-deco-left"><div class="a-disc-lg"></div><div class="a-disc"></div><div class="a-disc-lg"></div><div class="a-disc"></div></div>
+          <div class="albums-deco-right"><div class="a-disc"></div><div class="a-disc-lg"></div><div class="a-disc"></div><div class="a-disc-lg"></div></div>
+          <div class="albums-grid">
+            <div class="albums-row-top">
+              <div class="ac checker"><span class="ac-num">1</span></div>
+              <div class="ac checker"><span class="ac-num">2</span></div>
+            </div>
+            <div class="albums-row-bot">
+              <div class="ac checker"><span class="ac-num">3</span></div>
+              <div class="ac checker"><span class="ac-num">4</span></div>
+              <div class="ac checker"><span class="ac-num">5</span></div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="albums-list">
-        <div class="albums-item"><span class="albums-item-num">1</span><div><div class="albums-item-title">The Forever Story</div><div class="albums-item-artist">JID</div></div></div>
-        <div class="albums-item"><span class="albums-item-num">2</span><div><div class="albums-item-title">Alligator Bites Never Heal</div><div class="albums-item-artist">Doechii</div></div></div>
-        <div class="albums-item"><span class="albums-item-num">3</span><div><div class="albums-item-title">Mama's Gun</div><div class="albums-item-artist">Erykah Badu</div></div></div>
-        <div class="albums-item"><span class="albums-item-num">4</span><div><div class="albums-item-title">Baduizm</div><div class="albums-item-artist">Erykah Badu</div></div></div>
-        <div class="albums-item"><span class="albums-item-num">5</span><div><div class="albums-item-title">Doris</div><div class="albums-item-artist">Earl Sweatshirt</div></div></div>
-      </div>
-
-      <div class="albums-footer sp-footer">
-        <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-        <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        <div class="albums-list">
+          <div class="albums-item"><span class="albums-item-num">1</span><div><div class="albums-item-title">The Forever Story</div><div class="albums-item-artist">JID</div></div></div>
+          <div class="albums-item"><span class="albums-item-num">2</span><div><div class="albums-item-title">Alligator Bites Never Heal</div><div class="albums-item-artist">Doechii</div></div></div>
+          <div class="albums-item"><span class="albums-item-num">3</span><div><div class="albums-item-title">Mama's Gun</div><div class="albums-item-artist">Erykah Badu</div></div></div>
+          <div class="albums-item"><span class="albums-item-num">4</span><div><div class="albums-item-title">Baduizm</div><div class="albums-item-artist">Erykah Badu</div></div></div>
+          <div class="albums-item"><span class="albums-item-num">5</span><div><div class="albums-item-title">Doris</div><div class="albums-item-artist">Earl Sweatshirt</div></div></div>
+        </div>
+        <div class="albums-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
       </div>
     </div>
-  </div>
 
+    <!-- 4. Artists -->
+    <div class="card-section">
+      <span class="page-label">My Top Artists</span>
+      <div class="artists-card">
+        <div class="artists-inner">
+          <div class="artists-arcs-left">
+            <svg width="120" height="180" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="0" cy="180" r="35"  fill="none" stroke="rgba(255,255,255,0.9)"  stroke-width="2"/>
+              <circle cx="0" cy="180" r="55"  fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2"/>
+              <circle cx="0" cy="180" r="75"  fill="none" stroke="rgba(255,255,255,0.6)"  stroke-width="2"/>
+              <circle cx="0" cy="180" r="95"  fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+              <circle cx="0" cy="180" r="115" fill="none" stroke="rgba(255,255,255,0.3)"  stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="artists-arcs-right">
+            <svg width="120" height="180" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="120" cy="0" r="35"  fill="none" stroke="rgba(160,100,255,0.9)"  stroke-width="2"/>
+              <circle cx="120" cy="0" r="55"  fill="none" stroke="rgba(160,100,255,0.75)" stroke-width="2"/>
+              <circle cx="120" cy="0" r="75"  fill="none" stroke="rgba(160,100,255,0.6)"  stroke-width="2"/>
+              <circle cx="120" cy="0" r="95"  fill="none" stroke="rgba(160,100,255,0.45)" stroke-width="2"/>
+              <circle cx="120" cy="0" r="115" fill="none" stroke="rgba(160,100,255,0.3)"  stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="artists-squiggle">
+            <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 8 36 C 8 20 22 20 22 12 C 22 4 36 4 36 20 C 36 28 28 32 22 38" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="artists-title">My Top Artists</div>
+          <div class="artists-row"><span class="artists-row-num">1</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">JID</div></div>
+          <div class="artists-row"><span class="artists-row-num">2</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Erykah Badu</div></div>
+          <div class="artists-row"><span class="artists-row-num">3</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Tyler, The Creator</div></div>
+          <div class="artists-row"><span class="artists-row-num">4</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Kendrick Lamar</div></div>
+          <div class="artists-row"><span class="artists-row-num">5</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Doechii</div></div>
+        </div>
+        <div class="artists-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
+      </div>
+    </div>
 
-  <!-- ════════ 4. MY TOP ARTISTS ════════ -->
-  <div class="card-section">
-    <span class="page-label">My Top Artists</span>
-    <div class="artists-card">
-      <div class="artists-inner">
-
-        <div class="artists-arcs-left">
-          <svg width="120" height="180" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="0" cy="180" r="35"  fill="none" stroke="rgba(255,255,255,0.9)"  stroke-width="2"/>
-            <circle cx="0" cy="180" r="55"  fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2"/>
-            <circle cx="0" cy="180" r="75"  fill="none" stroke="rgba(255,255,255,0.6)"  stroke-width="2"/>
-            <circle cx="0" cy="180" r="95"  fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
-            <circle cx="0" cy="180" r="115" fill="none" stroke="rgba(255,255,255,0.3)"  stroke-width="2"/>
+    <!-- 5. Artist -->
+    <div class="card-section">
+      <span class="page-label">My Top Artist</span>
+      <div class="artist-card">
+        <div class="artist-top">
+          <svg class="artist-funnel" viewBox="0 0 260 210" xmlns="http://www.w3.org/2000/svg">
+            <line x1="130" y1="0" x2="0"   y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="130" y1="0" x2="40"  y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="130" y1="0" x2="85"  y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="130" y1="0" x2="130" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="130" y1="0" x2="175" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="130" y1="0" x2="220" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="130" y1="0" x2="260" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <line x1="0" y1="50"  x2="260" y2="50"  stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+            <line x1="0" y1="100" x2="260" y2="100" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+            <line x1="0" y1="150" x2="260" y2="150" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
           </svg>
+          <div class="artist-circle-wrap"><div class="artist-circle checker"></div></div>
         </div>
+        <div class="artist-body">
+          <div class="artist-label">My Top Artist</div>
+          <div class="artist-name">Twenty One Pilots</div>
+          <div class="artist-divider"></div>
+          <div class="artist-stat-lbl">Minutes Listened</div>
+          <div class="artist-stat-val">3,547</div>
+          <div class="artist-global">Top 0.1% global fan</div>
+        </div>
+        <div class="artist-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
+      </div>
+    </div>
 
-        <div class="artists-arcs-right">
-          <svg width="120" height="180" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="120" cy="0" r="35"  fill="none" stroke="rgba(160,100,255,0.9)"  stroke-width="2"/>
-            <circle cx="120" cy="0" r="55"  fill="none" stroke="rgba(160,100,255,0.75)" stroke-width="2"/>
-            <circle cx="120" cy="0" r="75"  fill="none" stroke="rgba(160,100,255,0.6)"  stroke-width="2"/>
-            <circle cx="120" cy="0" r="95"  fill="none" stroke="rgba(160,100,255,0.45)" stroke-width="2"/>
-            <circle cx="120" cy="0" r="115" fill="none" stroke="rgba(160,100,255,0.3)"  stroke-width="2"/>
+    <!-- 6. Songs -->
+    <div class="card-section">
+      <span class="page-label">My Top Songs</span>
+      <div class="songs-card">
+        <div class="songs-img-area">
+          <svg class="songs-waves" width="160" height="90" viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#fff" d="M 0,0 L 22,0 A 22,22 0 0 0 0,22 Z"/>
+            <path fill="#000" d="M 22,0 L 42,0 A 42,42 0 0 0 0,42 L 0,22 A 22,22 0 0 1 22,0 Z"/>
+            <path fill="#fff" d="M 42,0 L 62,0 A 62,62 0 0 0 0,62 L 0,42 A 42,42 0 0 1 42,0 Z"/>
+            <path fill="#000" d="M 62,0 L 82,0 A 82,82 0 0 0 0,82 L 0,62 A 62,62 0 0 1 62,0 Z"/>
+            <path fill="#fff" d="M 82,0 L 102,0 A 102,102 0 0 0 0,102 L 0,82 A 82,82 0 0 1 82,0 Z"/>
+            <path fill="#000" d="M 102,0 L 122,0 A 122,122 0 0 0 0,122 L 0,102 A 102,102 0 0 1 102,0 Z"/>
+            <path fill="#fff" d="M 122,0 L 142,0 A 142,142 0 0 0 0,142 L 0,122 A 122,122 0 0 1 122,0 Z"/>
+            <path fill="#000" d="M 142,0 L 162,0 A 162,162 0 0 0 0,162 L 0,142 A 142,142 0 0 1 142,0 Z"/>
           </svg>
+          <div class="songs-label">My Top Songs</div>
         </div>
-
-        <div class="artists-squiggle">
-          <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 8 36 C 8 20 22 20 22 12 C 22 4 36 4 36 20 C 36 28 28 32 22 38" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-          </svg>
+        <div class="songs-list">
+          <div class="songs-item"><span class="songs-num">1</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Drum Show</div><div class="songs-artist">Twenty One Pilots</div></div></div>
+          <div class="songs-item"><span class="songs-num">2</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">End of Beginning</div><div class="songs-artist">Djo</div></div></div>
+          <div class="songs-item"><span class="songs-num">3</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Valentine</div><div class="songs-artist">Laufey</div></div></div>
+          <div class="songs-item"><span class="songs-num">4</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Running Up That Hill</div><div class="songs-artist">Kate Bush</div></div></div>
+          <div class="songs-item"><span class="songs-num">5</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Defying Gravity</div><div class="songs-artist">Cynthia Erivo</div></div></div>
         </div>
-
-        <div class="artists-title">My Top Artists</div>
-
-        <div class="artists-row"><span class="artists-row-num">1</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">JID</div></div>
-        <div class="artists-row"><span class="artists-row-num">2</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Erykah Badu</div></div>
-        <div class="artists-row"><span class="artists-row-num">3</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Tyler, The Creator</div></div>
-        <div class="artists-row"><span class="artists-row-num">4</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Kendrick Lamar</div></div>
-        <div class="artists-row"><span class="artists-row-num">5</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Doechii</div></div>
-      </div>
-
-      <div class="artists-footer sp-footer">
-        <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-        <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ════════ 5. MY TOP ARTIST ════════ -->
-  <div class="card-section">
-    <span class="page-label">My Top Artist</span>
-    <div class="artist-card">
-
-      <div class="artist-top">
-        <svg class="artist-funnel" viewBox="0 0 260 210" xmlns="http://www.w3.org/2000/svg">
-          <line x1="130" y1="0" x2="0"   y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-          <line x1="130" y1="0" x2="40"  y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-          <line x1="130" y1="0" x2="85"  y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-          <line x1="130" y1="0" x2="130" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-          <line x1="130" y1="0" x2="175" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-          <line x1="130" y1="0" x2="220" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-          <line x1="130" y1="0" x2="260" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-          <line x1="0" y1="50"  x2="260" y2="50"  stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-          <line x1="0" y1="100" x2="260" y2="100" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-          <line x1="0" y1="150" x2="260" y2="150" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-        </svg>
-        <div class="artist-circle-wrap">
-          <div class="artist-circle checker"></div>
+        <div class="songs-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
         </div>
       </div>
+    </div>
 
-      <div class="artist-body">
-        <div class="artist-label">My Top Artist</div>
-        <div class="artist-name">Twenty One Pilots</div>
-        <div class="artist-divider"></div>
-        <div class="artist-stat-lbl">Minutes Listened</div>
-        <div class="artist-stat-val">3,547</div>
-        <div class="artist-global">Top 0.1% global fan</div>
+    <!-- 7. Age -->
+    <div class="card-section">
+      <span class="page-label">My Listening Age</span>
+      <div class="age-card">
+        <div class="age-body">
+          <div class="age-heading">My Listening Age</div>
+          <div class="age-num">45</div>
+          <div class="age-since">Since I was into music from the <strong>Late 90s</strong></div>
+        </div>
+        <div class="age-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
       </div>
+    </div>
 
-      <div class="artist-footer sp-footer">
-        <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-        <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+    <!-- 8. Minutes -->
+    <div class="card-section">
+      <span class="page-label">My Minutes Listened</span>
+      <div class="mins-card">
+        <div class="mins-body">
+          <div class="mins-heading">My Minutes Listened</div>
+          <div class="mins-num">71,169</div>
+          <div class="mins-days">That's <strong>49 days.</strong></div>
+        </div>
+        <div class="mins-footer sp-footer">
+          <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
+          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+        </div>
       </div>
     </div>
   </div>
 
-
-  <!-- ════════ 6. MY TOP SONGS ════════ -->
-  <div class="card-section">
-    <span class="page-label">My Top Songs</span>
-    <div class="songs-card">
-
-      <div class="songs-img-area">
-        <svg class="songs-waves" width="160" height="90" viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg">
-          <path fill="#fff" d="M 0,0 L 22,0 A 22,22 0 0 0 0,22 Z"/>
-          <path fill="#000" d="M 22,0 L 42,0 A 42,42 0 0 0 0,42 L 0,22 A 22,22 0 0 1 22,0 Z"/>
-          <path fill="#fff" d="M 42,0 L 62,0 A 62,62 0 0 0 0,62 L 0,42 A 42,42 0 0 1 42,0 Z"/>
-          <path fill="#000" d="M 62,0 L 82,0 A 82,82 0 0 0 0,82 L 0,62 A 62,62 0 0 1 62,0 Z"/>
-          <path fill="#fff" d="M 82,0 L 102,0 A 102,102 0 0 0 0,102 L 0,82 A 82,82 0 0 1 82,0 Z"/>
-          <path fill="#000" d="M 102,0 L 122,0 A 122,122 0 0 0 0,122 L 0,102 A 102,102 0 0 1 102,0 Z"/>
-          <path fill="#fff" d="M 122,0 L 142,0 A 142,142 0 0 0 0,142 L 0,122 A 122,122 0 0 1 122,0 Z"/>
-          <path fill="#000" d="M 142,0 L 162,0 A 162,162 0 0 0 0,162 L 0,142 A 142,142 0 0 1 142,0 Z"/>
-        </svg>
-        <div class="songs-label">My Top Songs</div>
-      </div>
-
-      <div class="songs-list">
-        <div class="songs-item"><span class="songs-num">1</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Drum Show</div><div class="songs-artist">Twenty One Pilots</div></div></div>
-        <div class="songs-item"><span class="songs-num">2</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">End of Beginning</div><div class="songs-artist">Djo</div></div></div>
-        <div class="songs-item"><span class="songs-num">3</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Valentine</div><div class="songs-artist">Laufey</div></div></div>
-        <div class="songs-item"><span class="songs-num">4</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Running Up That Hill</div><div class="songs-artist">Kate Bush</div></div></div>
-        <div class="songs-item"><span class="songs-num">5</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Defying Gravity</div><div class="songs-artist">Cynthia Erivo</div></div></div>
-      </div>
-
-      <div class="songs-footer sp-footer" style="margin-top:6px;">
-        <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-        <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ════════ 7. MY LISTENING AGE ════════ -->
-  <div class="card-section">
-    <span class="page-label">My Listening Age</span>
-    <div class="age-card">
-      <div class="age-body">
-        <div class="age-heading">My Listening Age</div>
-        <div class="age-num">45</div>
-        <div class="age-since">Since I was into music from the <strong>Late 90s</strong></div>
-      </div>
-      <div class="age-footer sp-footer">
-        <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-        <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ════════ 8. MY MINUTES LISTENED ════════ -->
-  <div class="card-section">
-    <span class="page-label">My Minutes Listened</span>
-    <div class="mins-card">
-      <div class="mins-body">
-        <div class="mins-heading">My Minutes Listened</div>
-        <div class="mins-num">71,169</div>
-        <div class="mins-days">That's <strong>49 days.</strong></div>
-      </div>
-      <div class="mins-footer sp-footer">
-        <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-        <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
-      </div>
-    </div>
-  </div>
+  <script>
+    function replayIntro() {
+      const stage = document.getElementById('introStage');
+      const grid = document.getElementById('cardsGrid');
+      const stageClone = stage.cloneNode(true);
+      stage.parentNode.replaceChild(stageClone, stage);
+      const gridClone = grid.cloneNode(true);
+      grid.parentNode.replaceChild(gridClone, grid);
+    }
+  </script>
 
 </body>
 </html>
