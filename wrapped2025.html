@@ -436,7 +436,7 @@
       gap: 2px;
       transform: translateX(-100%);
       z-index: 2;
-      animation: s4BarcodeSlide 8s cubic-bezier(0.5, 0, 0.5, 1) 21s forwards;
+      animation: s4BarcodeSlide 8s cubic-bezier(0.5, 0, 0.5, 1) 31s forwards;
     }
     @keyframes s4BarcodeSlide {
       0%   { transform: translateX(-100%); }
@@ -466,7 +466,7 @@
     }
 
 
-    /* ────────────── CARD SCENES ────────────── */
+    /* ────────────── CARD SCENES (full-screen) ────────────── */
     .scene-c1 { background: #fff; }
     .scene-c2 { background: #ede8dc; }
     .scene-c3 { background: #ede8dc; }
@@ -476,15 +476,230 @@
     .scene-c7 { background: #e4e4e4; }
     .scene-c8 { background: #111; }
 
-    .scene .tops-card { transform: scale(1.35); }
+    /* Shared full-screen wrapper */
+    .fsc-wrap { position: absolute; inset: 0; display: flex; flex-direction: column; }
+    .fsc-body { flex: 1; overflow: hidden; min-height: 0; }
+    .fsc-footer {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 24px; flex-shrink: 0;
+    }
+    .fsc-url { font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.4px; }
 
-    .scene .genres-card,
-    .scene .albums-card,
-    .scene .artists-card,
-    .scene .artist-card,
-    .scene .songs-card,
-    .scene .age-card,
-    .scene .mins-card { transform: scale(1.5); }
+    /* ── C1: The Tops ── */
+    .fsc-tops { display: flex; height: 100%; }
+    .fsc-tops-left {
+      width: 330px; background: #000;
+      position: relative; overflow: hidden; flex-shrink: 0;
+    }
+    .fsc-tops-label {
+      position: absolute; top: 16px; left: 18px;
+      color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 1px; z-index: 10;
+    }
+    .fsc-tops-year {
+      position: absolute; left: -44px; top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      color: #f5c800; font-size: 106px; font-weight: 900; font-style: italic;
+      letter-spacing: -4px; white-space: nowrap; z-index: 10; line-height: 1;
+    }
+    .fsc-tops-art {
+      position: absolute; left: 52%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px; height: 200px; z-index: 5;
+    }
+    .fsc-tops-stripes {
+      position: absolute; right: 0; top: 0;
+      width: 74px; height: 100%; overflow: hidden; z-index: 4;
+    }
+    .fsc-tops-right {
+      flex: 1; background: #fff;
+      padding: 28px 36px 20px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .fsc-tops-cols { display: flex; gap: 44px; flex: 1; }
+    .fsc-tops-col { flex: 1; }
+    .fsc-tops-col-title {
+      font-size: 10px; font-weight: 700; color: #999;
+      letter-spacing: 1px; text-transform: uppercase;
+      margin-bottom: 12px; font-family: Arial, sans-serif;
+    }
+    .fsc-tops-list { list-style: none; margin: 0; padding: 0; }
+    .fsc-tops-list li {
+      display: flex; gap: 8px; font-size: 15px; font-weight: 700;
+      color: #000; margin-bottom: 11px;
+    }
+    .fsc-tops-list li .rn { color: #bbb; min-width: 14px; font-family: Arial, sans-serif; }
+    .fsc-tops-stats {
+      display: flex; gap: 44px;
+      border-top: 1px solid #eee; padding-top: 18px; flex-shrink: 0;
+    }
+    .fsc-tops-stat-lbl {
+      font-size: 10px; font-weight: 700; color: #999;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      margin-bottom: 4px; font-family: Arial, sans-serif;
+    }
+    .fsc-tops-stat-big { font-size: 40px; font-weight: 900; color: #000; letter-spacing: -1.5px; line-height: 1; }
+    .fsc-tops-stat-med { font-size: 34px; font-weight: 900; color: #000; line-height: 1; }
+    .scene-c1 .fsc-footer { background: #000; }
+    .scene-c1 .fsc-url { color: #fff; }
+
+    /* ── C2: Genres ── */
+    .fsc-genres {
+      display: flex; flex-direction: column;
+      padding: 18px 50px 14px; gap: 5px; height: 100%;
+    }
+    .fsc-genres-heading {
+      text-align: center; font-size: 24px; font-weight: 900;
+      color: #000; letter-spacing: -0.5px; margin-bottom: 8px; flex-shrink: 0;
+    }
+    .fsc-genres-row { display: flex; align-items: stretch; gap: 10px; flex: 1; }
+    .fsc-genres-num {
+      font-size: 14px; font-weight: 700; color: #888;
+      width: 18px; text-align: right; font-family: Arial, sans-serif;
+      flex-shrink: 0; display: flex; align-items: center;
+    }
+    .fsc-genres-bar {
+      flex: 1; background: #000; color: #fff; font-weight: 900;
+      font-size: 46px; line-height: 1; padding: 0 18px;
+      white-space: nowrap; overflow: hidden; display: flex; align-items: center;
+    }
+    .fsc-genres-bar.sm { font-size: 30px; }
+    .scene-c2 .fsc-footer { background: #ede8dc; }
+    .scene-c2 .fsc-url { color: #000; }
+
+    /* ── C3: Albums ── */
+    .fsc-albums { display: flex; height: 100%; }
+    .fsc-albums-left {
+      width: 390px; flex-shrink: 0;
+      padding: 22px 18px 18px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .fsc-albums-title {
+      display: inline-block; background: #f5c800;
+      font-size: 20px; font-weight: 900; color: #000;
+      padding: 3px 14px; letter-spacing: -0.3px; flex-shrink: 0;
+    }
+    .fsc-albums-grid { flex: 1; display: flex; flex-direction: column; border: 2.5px solid #000; }
+    .fsc-albums-row-top { flex: 3; display: flex; border-bottom: 2.5px solid #000; }
+    .fsc-albums-row-top .fac { flex: 1; }
+    .fsc-albums-row-top .fac:first-child { border-right: 2.5px solid #000; }
+    .fsc-albums-row-bot { flex: 2; display: flex; }
+    .fsc-albums-row-bot .fac { flex: 1; }
+    .fsc-albums-row-bot .fac:not(:last-child) { border-right: 2.5px solid #000; }
+    .fac { position: relative; overflow: hidden; }
+    .fac-num {
+      position: absolute; bottom: 6px; right: 6px;
+      font-size: 14px; font-weight: 700; color: #fff;
+      background: rgba(0,0,0,0.65); padding: 2px 5px; line-height: 1.2; z-index: 2;
+      font-family: Arial, sans-serif;
+    }
+    .fsc-albums-right {
+      flex: 1; padding: 24px 32px;
+      display: flex; flex-direction: column; justify-content: center; gap: 8px;
+    }
+    .fsc-albums-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding-bottom: 10px; border-bottom: 1px solid #c8c2b4;
+    }
+    .fsc-albums-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .fsc-albums-num { font-size: 18px; font-weight: 700; color: #000; min-width: 22px; font-family: Arial, sans-serif; }
+    .fsc-albums-item-title { font-size: 16px; font-weight: 700; color: #000; line-height: 1.2; font-family: Arial, sans-serif; }
+    .fsc-albums-item-artist { font-size: 13px; color: #666; font-family: Arial, sans-serif; }
+    .scene-c3 .fsc-footer { background: #ede8dc; }
+    .scene-c3 .fsc-url { color: #000; }
+
+    /* ── C4: Artists ── */
+    .fsc-artists {
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      padding: 22px 70px; gap: 8px; height: 100%;
+    }
+    .fsc-artists-arc-tr { position: absolute; top: -50px; right: -50px; z-index: 2; pointer-events: none; }
+    .fsc-artists-arc-bl { position: absolute; bottom: -50px; left: -50px; z-index: 2; pointer-events: none; }
+    .fsc-artists-title {
+      text-align: center; font-size: 20px; font-weight: 900; color: #fff;
+      margin-bottom: 4px; position: relative; z-index: 10; flex-shrink: 0;
+    }
+    .fsc-artists-row {
+      display: flex; align-items: center; gap: 14px;
+      position: relative; z-index: 10; flex: 1;
+    }
+    .fsc-artists-num { font-size: 16px; font-weight: 700; color: #fff; width: 20px; flex-shrink: 0; font-family: Arial, sans-serif; }
+    .fsc-artists-thumb { width: 52px; height: 52px; flex-shrink: 0; border-radius: 3px; }
+    .fsc-artists-name {
+      flex: 1; background: #1e1e2a; color: #fff;
+      font-size: 20px; font-weight: 700; padding: 0 18px;
+      border-left: 3px solid #4f82ff; font-family: Arial, sans-serif;
+      display: flex; align-items: center; height: 100%;
+    }
+    .scene-c4 .fsc-footer { background: #0e0e12; border-top: 1px solid #222; }
+    .scene-c4 .fsc-url { color: #fff; }
+
+    /* ── C5: Top Artist ── */
+    .fsc-artist { display: flex; flex-direction: column; height: 100%; }
+    .fsc-artist-top { position: relative; height: 300px; overflow: hidden; flex-shrink: 0; }
+    .fsc-artist-funnel { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; }
+    .fsc-artist-circle-wrap {
+      position: absolute; left: 50%; top: 54%;
+      transform: translate(-50%, -50%); z-index: 5;
+    }
+    .fsc-artist-circle {
+      width: 190px; height: 190px; border-radius: 50%;
+      border: 6px solid #00c8ff; overflow: hidden;
+      box-shadow: 0 0 30px rgba(0,200,255,0.5);
+    }
+    .fsc-artist-body { flex: 1; padding: 14px 80px 8px; display: flex; flex-direction: column; justify-content: center; }
+    .fsc-artist-label { font-size: 12px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; font-family: Arial, sans-serif; }
+    .fsc-artist-name { font-size: 52px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -2px; margin-bottom: 12px; }
+    .fsc-artist-divider { height: 1px; background: #2a2a2a; margin-bottom: 12px; }
+    .fsc-artist-stats { display: flex; gap: 60px; }
+    .fsc-artist-stat-lbl { font-size: 11px; font-weight: 700; color: #888; margin-bottom: 2px; font-family: Arial, sans-serif; }
+    .fsc-artist-stat-val { font-size: 38px; font-weight: 900; color: #fff; letter-spacing: -1px; line-height: 1; }
+    .fsc-artist-global { font-size: 13px; color: #888; margin-top: 4px; font-family: Arial, sans-serif; }
+    .scene-c5 .fsc-footer { background: #111; border-top: 1px solid #222; }
+    .scene-c5 .fsc-url { color: #fff; }
+
+    /* ── C6: Songs ── */
+    .fsc-songs { display: flex; flex-direction: column; height: 100%; }
+    .fsc-songs-top { position: relative; height: 110px; flex-shrink: 0; overflow: hidden; }
+    .fsc-songs-label {
+      position: absolute; bottom: 12px; left: 50%;
+      transform: translateX(-50%); background: #fff; color: #000;
+      font-size: 20px; font-weight: 900; padding: 6px 30px;
+      white-space: nowrap; letter-spacing: -0.2px; z-index: 5;
+    }
+    .fsc-songs-list { flex: 1; padding: 0 60px; display: flex; flex-direction: column; justify-content: center; }
+    .fsc-songs-item { display: flex; align-items: center; gap: 16px; padding: 11px 0; border-bottom: 1px solid #2a2a2a; }
+    .fsc-songs-item:last-child { border-bottom: none; }
+    .fsc-songs-num { font-size: 16px; font-weight: 700; color: #555; width: 20px; text-align: right; flex-shrink: 0; font-family: Arial, sans-serif; }
+    .fsc-songs-thumb { width: 52px; height: 52px; flex-shrink: 0; }
+    .fsc-songs-info { flex: 1; overflow: hidden; }
+    .fsc-songs-title { font-size: 18px; font-weight: 700; color: #fff; line-height: 1.2; font-family: Arial, sans-serif; }
+    .fsc-songs-artist { font-size: 13px; color: #888; margin-top: 2px; font-family: Arial, sans-serif; }
+    .scene-c6 .fsc-footer { background: #111; border-top: 1px solid #222; }
+    .scene-c6 .fsc-url { color: #fff; }
+
+    /* ── C7: Age ── */
+    .fsc-age {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 16px 60px; height: 100%; text-align: center; gap: 8px;
+    }
+    .fsc-age-heading { font-size: 28px; font-weight: 900; color: #000; letter-spacing: -0.5px; }
+    .fsc-age-num { font-size: 220px; font-weight: 900; color: #9381e8; line-height: 0.88; letter-spacing: -10px; }
+    .fsc-age-since { font-size: 19px; color: #444; line-height: 1.5; font-family: Arial, sans-serif; }
+    .fsc-age-since strong { font-weight: 900; color: #000; }
+    .scene-c7 .fsc-footer { background: #e4e4e4; border-top: 1px solid #ccc; }
+    .scene-c7 .fsc-url { color: #000; }
+
+    /* ── C8: Minutes ── */
+    .fsc-mins {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 16px 60px; height: 100%; text-align: center; gap: 18px;
+    }
+    .fsc-mins-heading { font-size: 26px; font-weight: 900; color: #fff; letter-spacing: -0.5px; }
+    .fsc-mins-num { font-size: 110px; font-weight: 900; color: #9381e8; line-height: 1; letter-spacing: -4px; }
+    .fsc-mins-days { font-size: 22px; color: #999; font-family: Arial, sans-serif; }
+    .fsc-mins-days strong { color: #fff; font-weight: 900; }
+    .scene-c8 .fsc-footer { background: #111; border-top: 1px solid #222; }
+    .scene-c8 .fsc-url { color: #fff; }
 
 
     /* ────────────── SCENE 5 ────────────── */
@@ -875,265 +1090,257 @@
 
     <!-- CARD 1: The Tops -->
     <div class="scene scene-c1">
-      <div class="tops-card">
-        <div class="tops-img">
-          <span class="tops-label">The Tops</span>
-          <div class="tops-year">2025</div>
-          <div class="tops-album-art checker"></div>
-          <div class="tops-stripes">
-            <svg viewBox="0 0 86 270" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="ws2" x="0" y="0" width="18" height="270" patternUnits="userSpaceOnUse">
-                  <rect x="0" y="0" width="9" height="270" fill="#fff"/>
-                  <rect x="9" y="0" width="9" height="270" fill="#000"/>
-                </pattern>
-                <clipPath id="wc2">
-                  <path d="M 0 0 Q 11 34 0 68 Q -11 102 0 136 Q 11 170 0 204 Q -11 238 0 270 L 86 270 Q 75 236 86 202 Q 97 168 86 134 Q 75 100 86 66 Q 97 32 86 0 Z"/>
-                </clipPath>
-              </defs>
-              <rect x="0" y="0" width="86" height="270" fill="url(#ws2)" clip-path="url(#wc2)"/>
-            </svg>
+      <div class="fsc-wrap">
+        <div class="fsc-body fsc-tops">
+          <div class="fsc-tops-left">
+            <span class="fsc-tops-label">THE TOPS</span>
+            <div class="fsc-tops-year">2025</div>
+            <div class="fsc-tops-art checker"></div>
+            <div class="fsc-tops-stripes">
+              <svg viewBox="0 0 86 270" preserveAspectRatio="none" style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id="fws" x="0" y="0" width="18" height="270" patternUnits="userSpaceOnUse">
+                    <rect x="0" y="0" width="9" height="270" fill="#fff"/>
+                    <rect x="9" y="0" width="9" height="270" fill="#000"/>
+                  </pattern>
+                  <clipPath id="fwc">
+                    <path d="M 0 0 Q 11 34 0 68 Q -11 102 0 136 Q 11 170 0 204 Q -11 238 0 270 L 86 270 Q 75 236 86 202 Q 97 168 86 134 Q 75 100 86 66 Q 97 32 86 0 Z"/>
+                  </clipPath>
+                </defs>
+                <rect x="0" y="0" width="86" height="270" fill="url(#fws)" clip-path="url(#fwc)"/>
+              </svg>
+            </div>
+          </div>
+          <div class="fsc-tops-right">
+            <div class="fsc-tops-cols">
+              <div class="fsc-tops-col">
+                <div class="fsc-tops-col-title">Top Artists</div>
+                <ul class="fsc-tops-list">
+                  <li><span class="rn">1</span> sombr</li>
+                  <li><span class="rn">2</span> Lady Gaga</li>
+                  <li><span class="rn">3</span> Chappell Roan</li>
+                  <li><span class="rn">4</span> Ravyn Lenae</li>
+                  <li><span class="rn">5</span> Tinashe</li>
+                </ul>
+              </div>
+              <div class="fsc-tops-col">
+                <div class="fsc-tops-col-title">Top Songs</div>
+                <ul class="fsc-tops-list">
+                  <li><span class="rn">1</span> back to friends</li>
+                  <li><span class="rn">2</span> Golden</li>
+                  <li><span class="rn">3</span> Bad Romance</li>
+                  <li><span class="rn">4</span> savior</li>
+                  <li><span class="rn">5</span> Love Me Not</li>
+                </ul>
+              </div>
+            </div>
+            <div class="fsc-tops-stats">
+              <div>
+                <div class="fsc-tops-stat-lbl">Minutes Listened</div>
+                <div class="fsc-tops-stat-big">53,623</div>
+              </div>
+              <div>
+                <div class="fsc-tops-stat-lbl">Top Genre</div>
+                <div class="fsc-tops-stat-med">Indie</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="tops-stats">
-          <div class="tops-two-col">
-            <div class="tops-col">
-              <div class="tops-col-title">Top Artists</div>
-              <ul class="tops-list">
-                <li><span class="r">1</span> sombr</li>
-                <li><span class="r">2</span> Lady Gaga</li>
-                <li><span class="r">3</span> Chappell Roan</li>
-                <li><span class="r">4</span> Ravyn Lenae</li>
-                <li><span class="r">5</span> Tinashe</li>
-              </ul>
-            </div>
-            <div class="tops-col">
-              <div class="tops-col-title">Top Songs</div>
-              <ul class="tops-list">
-                <li><span class="r">1</span> back to friends</li>
-                <li><span class="r">2</span> Golden</li>
-                <li><span class="r">3</span> Bad Romance</li>
-                <li><span class="r">4</span> savior</li>
-                <li><span class="r">5</span> Love Me Not</li>
-              </ul>
-            </div>
-          </div>
-          <div class="tops-bottom">
-            <div class="tops-stat">
-              <div class="tops-stat-lbl">Minutes Listened</div>
-              <div class="tops-stat-big">53,623</div>
-            </div>
-            <div class="tops-stat">
-              <div class="tops-stat-lbl">Top Genre</div>
-              <div class="tops-stat-med">Indie</div>
-            </div>
-          </div>
-        </div>
-        <div class="tops-footer sp-footer">
+        <div class="fsc-footer">
           <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+          <span class="fsc-url">SPOTIFY.COM/WRAPPED</span>
         </div>
       </div>
     </div>
 
     <!-- CARD 2: Genres -->
     <div class="scene scene-c2">
-      <div class="genres-card">
-        <div class="genres-heading">My Top Genres</div>
-        <div class="genres-rows">
-          <div class="genres-row"><span class="genres-num">1</span><div class="genres-bar">K-Pop</div></div>
-          <div class="genres-row"><span class="genres-num">2</span><div class="genres-bar">Soft Pop</div></div>
-          <div class="genres-row"><span class="genres-num">3</span><div class="genres-bar">Soul</div></div>
-          <div class="genres-row"><span class="genres-num">4</span><div class="genres-bar sm">Gregorian Chant</div></div>
-          <div class="genres-row"><span class="genres-num">5</span><div class="genres-bar">Oldies</div></div>
+      <div class="fsc-wrap">
+        <div class="fsc-body fsc-genres">
+          <div class="fsc-genres-heading">My Top Genres</div>
+          <div class="fsc-genres-row"><span class="fsc-genres-num">1</span><div class="fsc-genres-bar">K-Pop</div></div>
+          <div class="fsc-genres-row"><span class="fsc-genres-num">2</span><div class="fsc-genres-bar">Soft Pop</div></div>
+          <div class="fsc-genres-row"><span class="fsc-genres-num">3</span><div class="fsc-genres-bar">Soul</div></div>
+          <div class="fsc-genres-row"><span class="fsc-genres-num">4</span><div class="fsc-genres-bar sm">Gregorian Chant</div></div>
+          <div class="fsc-genres-row"><span class="fsc-genres-num">5</span><div class="fsc-genres-bar">Oldies</div></div>
         </div>
-        <div class="genres-deco">
-          <svg width="260" height="88" viewBox="0 0 260 88" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="245" cy="-15" r="62" fill="none" stroke="#e8302e" stroke-width="3"/>
-            <circle cx="206" cy="42" r="7" fill="#e8302e"/>
-            <circle cx="36" cy="46" r="5" fill="#e8302e"/>
-            <circle cx="178" cy="66" r="4" fill="#e8302e"/>
-            <ellipse cx="64" cy="63" rx="15" ry="9" fill="#1a1a1a"/>
-            <ellipse cx="64" cy="56" rx="15" ry="9" fill="#000"/>
-            <ellipse cx="64" cy="49" rx="15" ry="9" fill="#1a1a1a"/>
-            <ellipse cx="214" cy="75" rx="10" ry="6" fill="#1a1a1a"/>
-            <ellipse cx="214" cy="69" rx="10" ry="6" fill="#000"/>
-            <circle cx="130" cy="72" r="13" fill="#000"/>
-            <circle cx="155" cy="80" r="7" fill="#000"/>
-            <circle cx="100" cy="78" r="5" fill="#000"/>
-            <path d="M 10 82 C 55 38 155 78 250 28" stroke="#000" stroke-width="2.5" fill="none"/>
-          </svg>
-        </div>
-        <div class="genres-footer sp-footer">
+        <div class="fsc-footer">
           <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+          <span class="fsc-url">SPOTIFY.COM/WRAPPED</span>
         </div>
       </div>
     </div>
 
     <!-- CARD 3: Albums -->
     <div class="scene scene-c3">
-      <div class="albums-card">
-        <div class="albums-header"><span class="albums-title-hl">My Top Albums</span></div>
-        <div class="albums-grid-wrap">
-          <div class="albums-deco-left"><div class="a-disc-lg"></div><div class="a-disc"></div><div class="a-disc-lg"></div><div class="a-disc"></div></div>
-          <div class="albums-deco-right"><div class="a-disc"></div><div class="a-disc-lg"></div><div class="a-disc"></div><div class="a-disc-lg"></div></div>
-          <div class="albums-grid">
-            <div class="albums-row-top">
-              <div class="ac checker"><span class="ac-num">1</span></div>
-              <div class="ac checker"><span class="ac-num">2</span></div>
-            </div>
-            <div class="albums-row-bot">
-              <div class="ac checker"><span class="ac-num">3</span></div>
-              <div class="ac checker"><span class="ac-num">4</span></div>
-              <div class="ac checker"><span class="ac-num">5</span></div>
+      <div class="fsc-wrap">
+        <div class="fsc-body fsc-albums">
+          <div class="fsc-albums-left">
+            <span class="fsc-albums-title">My Top Albums</span>
+            <div class="fsc-albums-grid">
+              <div class="fsc-albums-row-top">
+                <div class="fac checker"><span class="fac-num">1</span></div>
+                <div class="fac checker"><span class="fac-num">2</span></div>
+              </div>
+              <div class="fsc-albums-row-bot">
+                <div class="fac checker"><span class="fac-num">3</span></div>
+                <div class="fac checker"><span class="fac-num">4</span></div>
+                <div class="fac checker"><span class="fac-num">5</span></div>
+              </div>
             </div>
           </div>
+          <div class="fsc-albums-right">
+            <div class="fsc-albums-item"><span class="fsc-albums-num">1</span><div><div class="fsc-albums-item-title">The Forever Story</div><div class="fsc-albums-item-artist">JID</div></div></div>
+            <div class="fsc-albums-item"><span class="fsc-albums-num">2</span><div><div class="fsc-albums-item-title">Alligator Bites Never Heal</div><div class="fsc-albums-item-artist">Doechii</div></div></div>
+            <div class="fsc-albums-item"><span class="fsc-albums-num">3</span><div><div class="fsc-albums-item-title">Mama's Gun</div><div class="fsc-albums-item-artist">Erykah Badu</div></div></div>
+            <div class="fsc-albums-item"><span class="fsc-albums-num">4</span><div><div class="fsc-albums-item-title">Baduizm</div><div class="fsc-albums-item-artist">Erykah Badu</div></div></div>
+            <div class="fsc-albums-item"><span class="fsc-albums-num">5</span><div><div class="fsc-albums-item-title">Doris</div><div class="fsc-albums-item-artist">Earl Sweatshirt</div></div></div>
+          </div>
         </div>
-        <div class="albums-list">
-          <div class="albums-item"><span class="albums-item-num">1</span><div><div class="albums-item-title">The Forever Story</div><div class="albums-item-artist">JID</div></div></div>
-          <div class="albums-item"><span class="albums-item-num">2</span><div><div class="albums-item-title">Alligator Bites Never Heal</div><div class="albums-item-artist">Doechii</div></div></div>
-          <div class="albums-item"><span class="albums-item-num">3</span><div><div class="albums-item-title">Mama's Gun</div><div class="albums-item-artist">Erykah Badu</div></div></div>
-          <div class="albums-item"><span class="albums-item-num">4</span><div><div class="albums-item-title">Baduizm</div><div class="albums-item-artist">Erykah Badu</div></div></div>
-          <div class="albums-item"><span class="albums-item-num">5</span><div><div class="albums-item-title">Doris</div><div class="albums-item-artist">Earl Sweatshirt</div></div></div>
-        </div>
-        <div class="albums-footer sp-footer">
+        <div class="fsc-footer">
           <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+          <span class="fsc-url">SPOTIFY.COM/WRAPPED</span>
         </div>
       </div>
     </div>
 
     <!-- CARD 4: Artists -->
     <div class="scene scene-c4">
-      <div class="artists-card">
-        <div class="artists-inner">
-          <div class="artists-arcs-left">
-            <svg width="120" height="180" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="0" cy="180" r="35" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
-              <circle cx="0" cy="180" r="55" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2"/>
-              <circle cx="0" cy="180" r="75" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-              <circle cx="0" cy="180" r="95" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
-              <circle cx="0" cy="180" r="115" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+      <div class="fsc-wrap">
+        <div class="fsc-body fsc-artists">
+          <div class="fsc-artists-arc-tr">
+            <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="200" cy="0" r="55" fill="none" stroke="rgba(160,100,255,0.8)" stroke-width="2"/>
+              <circle cx="200" cy="0" r="85" fill="none" stroke="rgba(160,100,255,0.6)" stroke-width="2"/>
+              <circle cx="200" cy="0" r="115" fill="none" stroke="rgba(160,100,255,0.4)" stroke-width="2"/>
+              <circle cx="200" cy="0" r="145" fill="none" stroke="rgba(160,100,255,0.2)" stroke-width="2"/>
+              <circle cx="200" cy="0" r="175" fill="none" stroke="rgba(160,100,255,0.1)" stroke-width="2"/>
             </svg>
           </div>
-          <div class="artists-arcs-right">
-            <svg width="120" height="180" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="120" cy="0" r="35" fill="none" stroke="rgba(160,100,255,0.9)" stroke-width="2"/>
-              <circle cx="120" cy="0" r="55" fill="none" stroke="rgba(160,100,255,0.75)" stroke-width="2"/>
-              <circle cx="120" cy="0" r="75" fill="none" stroke="rgba(160,100,255,0.6)" stroke-width="2"/>
-              <circle cx="120" cy="0" r="95" fill="none" stroke="rgba(160,100,255,0.45)" stroke-width="2"/>
-              <circle cx="120" cy="0" r="115" fill="none" stroke="rgba(160,100,255,0.3)" stroke-width="2"/>
+          <div class="fsc-artists-arc-bl">
+            <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="0" cy="200" r="55" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
+              <circle cx="0" cy="200" r="85" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2"/>
+              <circle cx="0" cy="200" r="115" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
+              <circle cx="0" cy="200" r="145" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+              <circle cx="0" cy="200" r="175" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
             </svg>
           </div>
-          <div class="artists-squiggle">
-            <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 8 36 C 8 20 22 20 22 12 C 22 4 36 4 36 20 C 36 28 28 32 22 38" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="artists-title">My Top Artists</div>
-          <div class="artists-row"><span class="artists-row-num">1</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">JID</div></div>
-          <div class="artists-row"><span class="artists-row-num">2</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Erykah Badu</div></div>
-          <div class="artists-row"><span class="artists-row-num">3</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Tyler, The Creator</div></div>
-          <div class="artists-row"><span class="artists-row-num">4</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Kendrick Lamar</div></div>
-          <div class="artists-row"><span class="artists-row-num">5</span><div class="artists-row-thumb checker"></div><div class="artists-row-name">Doechii</div></div>
+          <div class="fsc-artists-title">My Top Artists</div>
+          <div class="fsc-artists-row"><span class="fsc-artists-num">1</span><div class="fsc-artists-thumb checker"></div><div class="fsc-artists-name">JID</div></div>
+          <div class="fsc-artists-row"><span class="fsc-artists-num">2</span><div class="fsc-artists-thumb checker"></div><div class="fsc-artists-name">Erykah Badu</div></div>
+          <div class="fsc-artists-row"><span class="fsc-artists-num">3</span><div class="fsc-artists-thumb checker"></div><div class="fsc-artists-name">Tyler, The Creator</div></div>
+          <div class="fsc-artists-row"><span class="fsc-artists-num">4</span><div class="fsc-artists-thumb checker"></div><div class="fsc-artists-name">Kendrick Lamar</div></div>
+          <div class="fsc-artists-row"><span class="fsc-artists-num">5</span><div class="fsc-artists-thumb checker"></div><div class="fsc-artists-name">Doechii</div></div>
         </div>
-        <div class="artists-footer sp-footer">
+        <div class="fsc-footer">
           <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+          <span class="fsc-url">SPOTIFY.COM/WRAPPED</span>
         </div>
       </div>
     </div>
 
     <!-- CARD 5: Top Artist -->
     <div class="scene scene-c5">
-      <div class="artist-card">
-        <div class="artist-top">
-          <svg class="artist-funnel" viewBox="0 0 260 210" xmlns="http://www.w3.org/2000/svg">
-            <line x1="130" y1="0" x2="0" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-            <line x1="130" y1="0" x2="40" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-            <line x1="130" y1="0" x2="85" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-            <line x1="130" y1="0" x2="130" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-            <line x1="130" y1="0" x2="175" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-            <line x1="130" y1="0" x2="220" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-            <line x1="130" y1="0" x2="260" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
-            <line x1="0" y1="50" x2="260" y2="50" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-            <line x1="0" y1="100" x2="260" y2="100" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-            <line x1="0" y1="150" x2="260" y2="150" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-          </svg>
-          <div class="artist-circle-wrap"><div class="artist-circle checker"></div></div>
+      <div class="fsc-wrap">
+        <div class="fsc-body fsc-artist">
+          <div class="fsc-artist-top">
+            <svg class="fsc-artist-funnel" viewBox="0 0 900 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="450" y1="0" x2="0" y2="300" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+              <line x1="450" y1="0" x2="112" y2="300" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+              <line x1="450" y1="0" x2="225" y2="300" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+              <line x1="450" y1="0" x2="337" y2="300" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+              <line x1="450" y1="0" x2="450" y2="300" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+              <line x1="450" y1="0" x2="562" y2="300" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+              <line x1="450" y1="0" x2="675" y2="300" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+              <line x1="450" y1="0" x2="787" y2="300" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+              <line x1="450" y1="0" x2="900" y2="300" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+              <line x1="0" y1="75"  x2="900" y2="75"  stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+              <line x1="0" y1="150" x2="900" y2="150" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+              <line x1="0" y1="225" x2="900" y2="225" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+            </svg>
+            <div class="fsc-artist-circle-wrap"><div class="fsc-artist-circle checker"></div></div>
+          </div>
+          <div class="fsc-artist-body">
+            <div class="fsc-artist-label">My Top Artist</div>
+            <div class="fsc-artist-name">Twenty One Pilots</div>
+            <div class="fsc-artist-divider"></div>
+            <div class="fsc-artist-stats">
+              <div>
+                <div class="fsc-artist-stat-lbl">Minutes Listened</div>
+                <div class="fsc-artist-stat-val">3,547</div>
+              </div>
+              <div>
+                <div class="fsc-artist-stat-lbl">Global Standing</div>
+                <div class="fsc-artist-stat-val" style="font-size:28px;letter-spacing:-0.5px;">Top 0.1%</div>
+                <div class="fsc-artist-global">of listeners worldwide</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="artist-body">
-          <div class="artist-label">My Top Artist</div>
-          <div class="artist-name">Twenty One Pilots</div>
-          <div class="artist-divider"></div>
-          <div class="artist-stat-lbl">Minutes Listened</div>
-          <div class="artist-stat-val">3,547</div>
-          <div class="artist-global">Top 0.1% global fan</div>
-        </div>
-        <div class="artist-footer sp-footer">
+        <div class="fsc-footer">
           <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+          <span class="fsc-url">SPOTIFY.COM/WRAPPED</span>
         </div>
       </div>
     </div>
 
     <!-- CARD 6: Songs -->
     <div class="scene scene-c6">
-      <div class="songs-card">
-        <div class="songs-img-area">
-          <svg class="songs-waves" width="160" height="90" viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#fff" d="M 0,0 L 22,0 A 22,22 0 0 0 0,22 Z"/>
-            <path fill="#000" d="M 22,0 L 42,0 A 42,42 0 0 0 0,42 L 0,22 A 22,22 0 0 1 22,0 Z"/>
-            <path fill="#fff" d="M 42,0 L 62,0 A 62,62 0 0 0 0,62 L 0,42 A 42,42 0 0 1 42,0 Z"/>
-            <path fill="#000" d="M 62,0 L 82,0 A 82,82 0 0 0 0,82 L 0,62 A 62,62 0 0 1 62,0 Z"/>
-            <path fill="#fff" d="M 82,0 L 102,0 A 102,102 0 0 0 0,102 L 0,82 A 82,82 0 0 1 82,0 Z"/>
-            <path fill="#000" d="M 102,0 L 122,0 A 122,122 0 0 0 0,122 L 0,102 A 102,102 0 0 1 102,0 Z"/>
-            <path fill="#fff" d="M 122,0 L 142,0 A 142,142 0 0 0 0,142 L 0,122 A 122,122 0 0 1 122,0 Z"/>
-            <path fill="#000" d="M 142,0 L 162,0 A 162,162 0 0 0 0,162 L 0,142 A 142,142 0 0 1 142,0 Z"/>
-          </svg>
-          <div class="songs-label">My Top Songs</div>
+      <div class="fsc-wrap">
+        <div class="fsc-body fsc-songs">
+          <div class="fsc-songs-top">
+            <svg style="position:absolute;top:0;left:0;width:100%;height:100%" viewBox="0 0 900 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#1a1a1a" d="M 0,0 L 40,0 A 40,40 0 0 0 0,40 Z"/>
+              <path fill="#2a2a2a" d="M 40,0 L 80,0 A 80,80 0 0 0 0,80 L 0,40 A 40,40 0 0 1 40,0 Z"/>
+              <path fill="#1a1a1a" d="M 80,0 L 120,0 A 120,120 0 0 0 0,120 L 0,80 A 80,80 0 0 1 80,0 Z"/>
+              <path fill="#2a2a2a" d="M 860,0 L 900,0 L 900,40 A 40,40 0 0 0 860,0 Z"/>
+              <path fill="#1a1a1a" d="M 820,0 L 860,0 A 40,40 0 0 1 900,40 L 900,80 A 80,80 0 0 0 820,0 Z"/>
+              <path fill="#2a2a2a" d="M 780,0 L 820,0 A 80,80 0 0 1 900,80 L 900,120 A 120,120 0 0 0 780,0 Z"/>
+            </svg>
+            <div class="fsc-songs-label">My Top Songs</div>
+          </div>
+          <div class="fsc-songs-list">
+            <div class="fsc-songs-item"><span class="fsc-songs-num">1</span><div class="fsc-songs-thumb checker"></div><div class="fsc-songs-info"><div class="fsc-songs-title">Drum Show</div><div class="fsc-songs-artist">Twenty One Pilots</div></div></div>
+            <div class="fsc-songs-item"><span class="fsc-songs-num">2</span><div class="fsc-songs-thumb checker"></div><div class="fsc-songs-info"><div class="fsc-songs-title">End of Beginning</div><div class="fsc-songs-artist">Djo</div></div></div>
+            <div class="fsc-songs-item"><span class="fsc-songs-num">3</span><div class="fsc-songs-thumb checker"></div><div class="fsc-songs-info"><div class="fsc-songs-title">Valentine</div><div class="fsc-songs-artist">Laufey</div></div></div>
+            <div class="fsc-songs-item"><span class="fsc-songs-num">4</span><div class="fsc-songs-thumb checker"></div><div class="fsc-songs-info"><div class="fsc-songs-title">Running Up That Hill</div><div class="fsc-songs-artist">Kate Bush</div></div></div>
+            <div class="fsc-songs-item"><span class="fsc-songs-num">5</span><div class="fsc-songs-thumb checker"></div><div class="fsc-songs-info"><div class="fsc-songs-title">Defying Gravity</div><div class="fsc-songs-artist">Cynthia Erivo</div></div></div>
+          </div>
         </div>
-        <div class="songs-list">
-          <div class="songs-item"><span class="songs-num">1</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Drum Show</div><div class="songs-artist">Twenty One Pilots</div></div></div>
-          <div class="songs-item"><span class="songs-num">2</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">End of Beginning</div><div class="songs-artist">Djo</div></div></div>
-          <div class="songs-item"><span class="songs-num">3</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Valentine</div><div class="songs-artist">Laufey</div></div></div>
-          <div class="songs-item"><span class="songs-num">4</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Running Up That Hill</div><div class="songs-artist">Kate Bush</div></div></div>
-          <div class="songs-item"><span class="songs-num">5</span><div class="songs-thumb checker"></div><div class="songs-info"><div class="songs-title">Defying Gravity</div><div class="songs-artist">Cynthia Erivo</div></div></div>
-        </div>
-        <div class="songs-footer sp-footer">
+        <div class="fsc-footer">
           <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+          <span class="fsc-url">SPOTIFY.COM/WRAPPED</span>
         </div>
       </div>
     </div>
 
     <!-- CARD 7: Age -->
     <div class="scene scene-c7">
-      <div class="age-card">
-        <div class="age-body">
-          <div class="age-heading">My Listening Age</div>
-          <div class="age-num">45</div>
-          <div class="age-since">Since I was into music from the <strong>Late 90s</strong></div>
+      <div class="fsc-wrap">
+        <div class="fsc-body fsc-age">
+          <div class="fsc-age-heading">My Listening Age</div>
+          <div class="fsc-age-num">45</div>
+          <div class="fsc-age-since">Since I was into music from the <strong>Late 90s</strong></div>
         </div>
-        <div class="age-footer sp-footer">
+        <div class="fsc-footer">
           <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+          <span class="fsc-url">SPOTIFY.COM/WRAPPED</span>
         </div>
       </div>
     </div>
 
     <!-- CARD 8: Minutes -->
     <div class="scene scene-c8">
-      <div class="mins-card">
-        <div class="mins-body">
-          <div class="mins-heading">My Minutes Listened</div>
-          <div class="mins-num">71,169</div>
-          <div class="mins-days">That's <strong>49 days.</strong></div>
+      <div class="fsc-wrap">
+        <div class="fsc-body fsc-mins">
+          <div class="fsc-mins-heading">My Minutes Listened</div>
+          <div class="fsc-mins-num">71,169</div>
+          <div class="fsc-mins-days">That's <strong>49 days.</strong></div>
         </div>
-        <div class="mins-footer sp-footer">
+        <div class="fsc-footer">
           <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.55.25.85z" fill="#fff"/></svg>
-          <span class="sp-url">SPOTIFY.COM/WRAPPED</span>
+          <span class="fsc-url">SPOTIFY.COM/WRAPPED</span>
         </div>
       </div>
     </div>
